@@ -1,0 +1,3 @@
+[submodule "frontendCoinPortfolio"]
+	path = frontendCoinPortfolio
+	url = https://github.com/EmreManis/frontendCoinPortfolio.git
