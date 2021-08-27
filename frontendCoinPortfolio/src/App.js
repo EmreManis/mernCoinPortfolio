@@ -1,14 +1,7 @@
-import logo from './logo.svg';
-import './App.css';
+import Homepage from './Pages/Homepage';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-       <p>Hello World!</p>
-      </header>
-    </div>
-  );
+  return <Homepage />
 }
 
 export default App;
