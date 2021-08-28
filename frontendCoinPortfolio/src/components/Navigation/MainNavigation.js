@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import Button from "../../shared/Button";
+
 const MainNavigation  = (props) =>{
 
     const [balance, setBalance] = useState(999);
@@ -17,12 +19,8 @@ const MainNavigation  = (props) =>{
                 <p>Profit/Loss: <span className="text-gray-700">{profitLoss}usd</span></p>
             </div>
                 <ul className="flex justify-end items-center w-1/5 space-x-2">
-                    <button className="bg-blue-500 hover:bg-blue-600 text-gray-100 py-2 px-4 rounded-lg">
-                        <a href="/">Log In</a>
-                    </button>
-                    <button className="bg-red-500 hover:bg-red-600 text-gray-100 py-2 px-4 rounded-lg">
-                        <a href="/">Sign Up</a>
-                    </button>
+                    <Button cssClass={"bg-blue-500 hover:bg-blue-600 py-2 px-4 "}>Log In</Button>
+                    <Button cssClass={"bg-red-500 hover:bg-red-600 py-2 px-4"}>Sign Up</Button>
                 </ul>
         </nav>
     );
