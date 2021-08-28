@@ -1,13 +1,17 @@
 import React from "react";
 
 import "./Homepage.css";
+
 import Navbar from '../components/Navigation/MainNavigation';
+import Transactions from "../components/Transactions/Transactions";
+import Button from '../shared/Button';
 
 const homePage = () => {
     return (
             <div className="contain">
                 <Navbar />
-                <p>Deneme</p>
+                <Transactions />
+                <Button cssClass = "bg-black">Deneme</Button>
             </div>
 
 

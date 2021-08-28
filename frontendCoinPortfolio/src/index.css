@@ -6,4 +6,5 @@
 body {
   margin: 0;
   font-family: Verdana, serif;
+  color: rgb(75, 85, 99);   /*text-gray-600 */
 }
