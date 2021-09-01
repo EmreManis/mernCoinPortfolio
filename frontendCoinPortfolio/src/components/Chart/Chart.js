@@ -1,6 +1,5 @@
 // pure component vs stateless will change due to performance
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
 
 import LineType from "./ChartTypes/LineChart";
 import PieType from "./ChartTypes/PieChart";
@@ -72,18 +71,43 @@ const Chart = (props) => {
         { name: 'D2', value: 50 },
     ];
 
+    const [lineChart, setLineChart] = useState(true);
+    const [appleChart, setAppleChart] = useState(false);
+
+    const switchToPieHandler = () => {
+        setLineChart(false);
+        setAppleChart(true);
+    }
+
+    const switchToLineHandler = () => {
+        setAppleChart(false);
+        setLineChart(true);
+    }
+
+    const chartHandler = (line, pie) => {
+
+            if( line ) {
+                return  <LineType data={DummyData}/>
+            } else if ( pie ) {
+                return <PieType data01 = {data01} data02={data02}/>
+            }
+
+    }
+
     return(
             <React.Fragment>
                 <div>
                     <div className="w-1/2 overflow-hidden">
-                        <ul className="list-none flex space-x-2 pl-16">
-                            <li className="border-b-2"><a href="">LineChart</a></li>
-                            <li><a href="">PieChart</a></li>
+                        <ul className="list-none flex space-x-2 pl-20">
+                            <li><button className={ lineChart ? "border-b-2 border-green-600" : null } onClick={switchToLineHandler}>LineChart</button></li>
+                            <li><button className={ appleChart ? "border-b-2 border-green-600" : null } onClick={switchToPieHandler}>PieChart</button></li>
                         </ul>
                     </div>
 
                     <div className="w-1/2 overflow-hidden">
-                        <LineType data={DummyData}/>
+                        {chartHandler(lineChart,appleChart)}
+                        {/*{lineChart ? <LineType data={DummyData}/> : <PieType data01 = {data01} data02={data02}/>}*/}
+                        {/*<LineType data={DummyData}/>*/}
                         {/*<PieType data01 = {data01} data02={data02}/>*/}
                     </div>
                 </div>
