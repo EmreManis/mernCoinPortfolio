@@ -106,9 +106,6 @@ const Chart = (props) => {
 
                     <div className="w-1/2 overflow-hidden">
                         {chartHandler(lineChart,appleChart)}
-                        {/*{lineChart ? <LineType data={DummyData}/> : <PieType data01 = {data01} data02={data02}/>}*/}
-                        {/*<LineType data={DummyData}/>*/}
-                        {/*<PieType data01 = {data01} data02={data02}/>*/}
                     </div>
                 </div>
             </React.Fragment>
