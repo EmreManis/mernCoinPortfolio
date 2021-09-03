@@ -7,6 +7,7 @@ import Transactions from "../components/Transactions/Transactions";
 import Chart from "../components/Chart/Chart";
 import TableBuilder from "../components/TableBuilder/TableBuilder";
 import Backdrop from "../shared/Backdrop";
+import Spinner from "../shared/Spinner";
 
 const homePage = () => {
     return (
@@ -18,6 +19,7 @@ const homePage = () => {
                     <TableBuilder />
                 </div>
                 {/*<Backdrop />*/}
+                <Spinner />
             </div>
 
 
