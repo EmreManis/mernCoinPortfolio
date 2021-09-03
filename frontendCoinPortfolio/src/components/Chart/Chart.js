@@ -1,6 +1,8 @@
 // pure component vs stateless will change due to performance
 import React, { useState } from "react";
 
+import './Chart.css';
+
 import LineType from "./ChartTypes/LineChart";
 import PieType from "./ChartTypes/PieChart";
 
@@ -99,8 +101,8 @@ const Chart = (props) => {
                 <div>
                     <div className="w-1/2 overflow-hidden">
                         <ul className="list-none flex space-x-2 pl-20">
-                            <li><button className={ lineChart ? "border-b-2 border-green-600" : null } onClick={switchToLineHandler}>LineChart</button></li>
-                            <li><button className={ appleChart ? "border-b-2 border-green-600" : null } onClick={switchToPieHandler}>PieChart</button></li>
+                            <li><button className={ lineChart ? "border-b-2 border-green-600 toLeft" : null } onClick={switchToLineHandler}>LineChart</button></li>
+                            <li><button className={ appleChart ? "border-b-2 border-green-600 toLeft" : null } onClick={switchToPieHandler}>PieChart</button></li>
                         </ul>
                     </div>
 

@@ -1,0 +1,21 @@
+.toLeft {
+    position: relative;
+    width: 100%;
+    animation-name: toLeft;
+    animation-duration: 1s;
+}
+
+@keyframes toLeft {
+    0% {
+        width: 0;
+     }
+    100%{
+        width: 100%;
+    }
+}
+
+
+
+
+
+
