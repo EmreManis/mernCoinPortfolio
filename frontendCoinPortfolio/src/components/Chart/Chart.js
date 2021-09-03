@@ -97,20 +97,18 @@ const Chart = (props) => {
     }
 
     return(
-            <React.Fragment>
-                <div>
-                    <div className="w-1/2 overflow-hidden">
+                <div className="w-1/3">
+                    <div className="w-1/2">
                         <ul className="list-none flex space-x-2 pl-20">
                             <li><button className={ lineChart ? "border-b-2 border-green-600 toLeft" : null } onClick={switchToLineHandler}>LineChart</button></li>
                             <li><button className={ appleChart ? "border-b-2 border-green-600 toLeft" : null } onClick={switchToPieHandler}>PieChart</button></li>
                         </ul>
                     </div>
 
-                    <div className="w-1/2 overflow-hidden">
+                    <div className="w-1/2">
                         {chartHandler(lineChart,appleChart)}
                     </div>
                 </div>
-            </React.Fragment>
     );
 }
 
