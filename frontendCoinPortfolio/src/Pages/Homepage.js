@@ -8,7 +8,7 @@ import Chart from "../components/Chart/Chart";
 import TableBuilder from "../components/TableBuilder";
 import Backdrop from "../shared/Backdrop";
 import Spinner from "../shared/Spinner";
-import Signup from "../components/Signup";
+import Signup from "../components/Auth/Signup";
 
 const homePage = () => {
     return (

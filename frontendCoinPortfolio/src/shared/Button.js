@@ -5,7 +5,8 @@ const Button = (props) => {
         'text-gray-100 py-1 px-3 rounded-lg');
 
     return (
-        <button className={`${cssStyle}`+" "+ props.cssClass}>
+        <button className={`${cssStyle}`+" "+ props.cssClass}
+        onClick={props.onClick}>
             {props.children}
         </button>);
 };
