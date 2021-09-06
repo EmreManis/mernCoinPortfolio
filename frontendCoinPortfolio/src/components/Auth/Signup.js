@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 import Button from "../../shared/Button";
 
+import * as validator from '../../shared/Validator';
+
+
 const Signup = (props) => {
     const [formState, setFormState] = useState({
         email: {
@@ -11,10 +14,20 @@ const Signup = (props) => {
         password: {
             value: '',
             isValid: false
+        },
+        conPassword:{
+            value:'',
+            isValid: false
         }
     });
 
-        console.log(formState);
+
+    const validationHandler = (value, valType) => {
+        let isValid = false;
+        console.log(isValid);
+        isValid = validator.validate(value, valType);
+        console.log(isValid);
+    };
 
 
 
@@ -35,8 +48,10 @@ const Signup = (props) => {
                                     ...formState.email,
                                     value: event.target.value
                                 }
-                            })
+                            });
+                            validationHandler(event.target.value, [validator.VALIDATOR_EMAIL()]);
                         }
+
                         }/>
                 </div>
                 <div className="mb-6">
@@ -45,7 +60,17 @@ const Signup = (props) => {
                     </label>
                     <input
                         className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                        id="password" type="password" placeholder="******************" />
+                        id="password" type="password" placeholder="******************"
+                    onChange={event => {
+                        setFormState({
+                            ...formState,
+                            password: {
+                                ...formState.password,
+                                value: event.target.value
+                            }
+                        });
+                        validationHandler(event.target.value, [validator.VALIDATOR_MINLENGTH(5)]);
+                    }}/>
                         <p className="text-red-500 text-xs italic">Please choose a password.</p>
                 </div>
                 <div className="mb-6">
@@ -54,7 +79,16 @@ const Signup = (props) => {
                     </label>
                     <input
                         className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                        id="password" type="password" placeholder="******************" />
+                        id="password" type="password" placeholder="******************"
+                        onChange={event => {
+                            setFormState({
+                                ...formState,
+                                conPassword:{
+                                    ...formState.conPassword,
+                                    value: event.target.value
+                                }
+                            });
+                        }}/>
                     <p className="text-red-500 text-xs italic">Please choose a password.</p>
                 </div>
                 <div className="flex items-center justify-between">
