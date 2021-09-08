@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import React, { useReducer, useCallback } from "react";
 
 import Button from "../../shared/Button";
 import Input from "../../shared/Input";
 
 import * as validator from '../../shared/Validator';
 
+const formReducer = (state, action) => {
+    switch (action.type) {
+        case 'CHANGE':
+        return {
+            ...state,
+            [action.inputId]: {value: action.value, isValid: action.isValid}
+        }
+        default: {
+            return state;
+        }
+    }
+}
 
 const Signup = (props) => {
-    const [formState, setFormState] = useState({
+
+    const [formState, dispatch] = useReducer(formReducer, {
         email: {
             value: ' ',
             isValid: false
@@ -21,16 +34,24 @@ const Signup = (props) => {
             isValid: false
         }
     });
+    
+    // const inputHandler = useCallback((id, value, isValid) => {
+    //     dispatch({
+    //         type: 'CHANGE',
+    //         value: value,
+    //         isValid: isValid,
+    //         inputId: id
+    //     });
+    // }, []);
 
-
-    const validationHandler = (value, valType) => {
-        let isValid = false;
-        console.log(isValid);
-        isValid = validator.validate(value, valType);
-        console.log(isValid);
-    };
-
-
+    const inputHandler = useCallback((id, value, isValid) => {
+        dispatch({
+            type: 'CHANGE',
+            value: value,
+            isValid: isValid,
+            inputId: id
+        });
+    }, []);
 
     return(
         <div className="w-full max-w-xs">
@@ -43,44 +64,29 @@ const Signup = (props) => {
                         id="email"
                         type="text"
                         placeholder="Email"
-                        onChange={setFormState}
+                        onInput={inputHandler}
                     />
                 </div>
                 <div className="mb-6">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                         Password
                     </label>
-                    <input
-                        className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                        id="password" type="password" placeholder="******************"
-                    onChange={event => {
-                        setFormState({
-                            ...formState,
-                            password: {
-                                ...formState.password,
-                                value: event.target.value
-                            }
-                        });
-                        validationHandler(event.target.value, [validator.VALIDATOR_MINLENGTH(5)]);
-                    }}/>
+                    <Input
+                        id="password"
+                        type="password"
+                        placeholder="******************"
+                        onInput={inputHandler}/>
                         <p className="text-red-500 text-xs italic">Please choose a password.</p>
                 </div>
                 <div className="mb-6">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                         Confirm Password
                     </label>
-                    <input
-                        className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                        id="password" type="password" placeholder="******************"
-                        onChange={event => {
-                            setFormState({
-                                ...formState,
-                                conPassword:{
-                                    ...formState.conPassword,
-                                    value: event.target.value
-                                }
-                            });
-                        }}/>
+                    <Input
+                        id="conPassword"
+                        type="password"
+                        placeholder="******************"
+                        onChange={inputHandler}/>
                     <p className="text-red-500 text-xs italic">Please choose a password.</p>
                 </div>
                 <div className="flex items-center justify-between">
