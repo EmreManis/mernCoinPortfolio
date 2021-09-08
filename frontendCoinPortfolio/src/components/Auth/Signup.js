@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import Button from "../../shared/Button";
+import Input from "../../shared/Input";
 
 import * as validator from '../../shared/Validator';
 
@@ -38,21 +39,12 @@ const Signup = (props) => {
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                         Email
                     </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="email" type="text" placeholder="Email"
-                        onChange={event => {
-                            setFormState({
-                                ...formState,
-                                email: {
-                                    ...formState.email,
-                                    value: event.target.value
-                                }
-                            });
-                            validationHandler(event.target.value, [validator.VALIDATOR_EMAIL()]);
-                        }
-
-                        }/>
+                    <Input
+                        id="email"
+                        type="text"
+                        placeholder="Email"
+                        onChange={setFormState}
+                    />
                 </div>
                 <div className="mb-6">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
