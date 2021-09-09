@@ -19,14 +19,12 @@ const Input = props => {
     const cssErrorClass = "border-red-500 rounded";
 
     const [inputState, dispatch] = useReducer(inputReducer, {value:'', isValid: false});
-
     const { id, onInput } = props;
     const { value, isValid } = inputState;
-
+console.log(typeof onInput);
     useEffect(() => {
-        onInput(id, value, isValid)
+            onInput(id, value, isValid)
     }, [id, value, isValid, onInput]);
-
 
     const changedHandler = (event) => {
         dispatch({type: 'CHANGE', val: event.target.value});
@@ -35,11 +33,11 @@ const Input = props => {
         return (
             <input
                 className={`${cssStyle}`+" "+ props.cssClass}
-            id={props.id}
-            type={props.type}
-            placeholder={props.placeholder}
-            value={inputState.value}
-            onChange={changedHandler}/>
+                id={props.id}
+                type={props.type}
+                placeholder={props.placeholder}
+                value={inputState.value}
+                onChange={changedHandler}/>
         );
 
 }

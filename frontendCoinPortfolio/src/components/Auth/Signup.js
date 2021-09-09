@@ -7,7 +7,7 @@ import * as validator from '../../shared/Validator';
 
 const formReducer = (state, action) => {
     switch (action.type) {
-        case 'CHANGE':
+        case 'INPUT_CHANGE':
         return {
             ...state,
             [action.inputId]: {value: action.value, isValid: action.isValid}
@@ -22,31 +22,23 @@ const Signup = (props) => {
 
     const [formState, dispatch] = useReducer(formReducer, {
         email: {
-            value: ' ',
+            value: '',
             isValid: false
         },
         password: {
             value: '',
             isValid: false
         },
-        conPassword:{
+        confirmation:{
             value:'',
             isValid: false
         }
     });
-    
-    // const inputHandler = useCallback((id, value, isValid) => {
-    //     dispatch({
-    //         type: 'CHANGE',
-    //         value: value,
-    //         isValid: isValid,
-    //         inputId: id
-    //     });
-    // }, []);
+    console.log(formState);
 
     const inputHandler = useCallback((id, value, isValid) => {
         dispatch({
-            type: 'CHANGE',
+            type: 'INPUT_CHANGE',
             value: value,
             isValid: isValid,
             inputId: id
@@ -83,10 +75,10 @@ const Signup = (props) => {
                         Confirm Password
                     </label>
                     <Input
-                        id="conPassword"
+                        id="confirmation"
                         type="password"
                         placeholder="******************"
-                        onChange={inputHandler}/>
+                        onInput={inputHandler}/>
                     <p className="text-red-500 text-xs italic">Please choose a password.</p>
                 </div>
                 <div className="flex items-center justify-between">
