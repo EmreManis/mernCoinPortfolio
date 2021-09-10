@@ -44,7 +44,7 @@ const Signup = (props) => {
             inputId: id
         });
     }, []);
-
+console.log(validator.VALIDATOR_EMAIL());
     return(
         <div className="w-full max-w-xs">
             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -57,6 +57,7 @@ const Signup = (props) => {
                         type="text"
                         placeholder="Email"
                         onInput={inputHandler}
+                        validators={[validator.VALIDATOR_EMAIL()]}
                     />
                 </div>
                 <div className="mb-6">
@@ -67,7 +68,8 @@ const Signup = (props) => {
                         id="password"
                         type="password"
                         placeholder="******************"
-                        onInput={inputHandler}/>
+                        onInput={inputHandler}
+                        validators={[validator.VALIDATOR_MINLENGTH(5)]}/>
                         <p className="text-red-500 text-xs italic">Please choose a password.</p>
                 </div>
                 <div className="mb-6">
@@ -78,7 +80,8 @@ const Signup = (props) => {
                         id="confirmation"
                         type="password"
                         placeholder="******************"
-                        onInput={inputHandler}/>
+                        onInput={inputHandler}
+                        validators={[validator.VALIDATOR_MINLENGTH(5)]}/>
                     <p className="text-red-500 text-xs italic">Please choose a password.</p>
                 </div>
                 <div className="flex items-center justify-between">
