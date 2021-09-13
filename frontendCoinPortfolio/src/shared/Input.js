@@ -23,7 +23,6 @@ const inputReducer = (state, action) => {
 const Input = props => {
 
     const cssStyle = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
-    const cssErrorClass = "border-red-500 rounded";
 
     const [inputState, dispatch] = useReducer(inputReducer, {value:'', isValid: false, isTouched: false});
     const { id, onInput } = props;
@@ -56,7 +55,7 @@ const Input = props => {
                     value={inputState.value}
                     onChange={changedHandler}
                     onBlur={touchedHandler}/>
-                {inputState.isTouched && !inputState.isValid && <p>it is touched</p>}
+                {inputState.isTouched && !inputState.isValid && <p className="text-red-600">{props.errorMessage}</p>}
             </React.Fragment>
 
         );

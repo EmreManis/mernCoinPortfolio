@@ -8,9 +8,17 @@ import * as validator from '../../shared/Validator';
 const formReducer = (state, action) => {
     switch (action.type) {
         case 'INPUT_CHANGE':
+            let formIsValid = true;
+            for (const inputId in state.initialInputs) {
+                formIsValid = formIsValid && state.initialInputs[inputId].isValid;
+            }
         return {
             ...state,
-            [action.inputId]: {value: action.value, isValid: action.isValid}
+            initialInputs: {
+                ...state.initialInputs,
+                [action.inputId]: { value: action.value, isValid: action.isValid }
+            },
+            initialFormValidity: formIsValid
         }
         default: {
             return state;
@@ -21,20 +29,22 @@ const formReducer = (state, action) => {
 const Signup = (props) => {
 
     const [formState, dispatch] = useReducer(formReducer, {
-        email: {
-            value: '',
-            isValid: false
-        },
-        password: {
-            value: '',
-            isValid: false
-        },
-        confirmation:{
-            value:'',
-            isValid: false
-        }
+         initialInputs:{
+             email: {
+                value: '',
+                isValid: false
+            },
+            password: {
+                value: '',
+                isValid: false
+            },
+            confirmation:{
+                value:'',
+                isValid: false
+            }
+            },
+            initialFormValidity: false
     });
-    console.log(formState);
 
     const inputHandler = useCallback((id, value, isValid) => {
         dispatch({
@@ -44,7 +54,13 @@ const Signup = (props) => {
             inputId: id
         });
     }, []);
-console.log(validator.VALIDATOR_EMAIL());
+
+    const passwordHandler = (pass, conf) =>{
+        return (
+            pass === conf ? true : <p>Password doesnt match</p>
+        );
+    };
+
     return(
         <div className="w-full max-w-xs">
             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -58,6 +74,7 @@ console.log(validator.VALIDATOR_EMAIL());
                         placeholder="Email"
                         onInput={inputHandler}
                         validators={[validator.VALIDATOR_EMAIL()]}
+                        errorMessage="Please enter a valid mail adress"
                     />
                 </div>
                 <div className="mb-6">
@@ -69,8 +86,8 @@ console.log(validator.VALIDATOR_EMAIL());
                         type="password"
                         placeholder="******************"
                         onInput={inputHandler}
-                        validators={[validator.VALIDATOR_MINLENGTH(5)]}/>
-                        <p className="text-red-500 text-xs italic">Please choose a password.</p>
+                        validators={[validator.VALIDATOR_MINLENGTH(5)]}
+                        errorMessage="Password need to be minimum 5 character"/>
                 </div>
                 <div className="mb-6">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
@@ -81,15 +98,16 @@ console.log(validator.VALIDATOR_EMAIL());
                         type="password"
                         placeholder="******************"
                         onInput={inputHandler}
-                        validators={[validator.VALIDATOR_MINLENGTH(5)]}/>
-                    <p className="text-red-500 text-xs italic">Please choose a password.</p>
+                        validators={[validator.VALIDATOR_MINLENGTH(5)]}
+                        errorMessage="Password need to be minimum 5 character and match with Password"/>
                 </div>
                 <div className="flex items-center justify-between">
                     <Button
-                        cssClass="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        cssClass="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
+                        disabled={true}>
                         Sign Up
                     </Button>
-                    <Button cssClass="bg-red-500 hover:bg-red-600 py-2 px-4 text-white font-bold rounded focus:outline-none focus:shadow-outline">
+                    <Button cssClass="bg-red-500 hover:bg-red-600 py-2 px-4 text-white font-bold rounded focus:outline-none focus:shadow-outline" >
                         Cancel
                     </Button>
 
