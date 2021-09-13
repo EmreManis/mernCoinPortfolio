@@ -10,15 +10,20 @@ const formReducer = (state, action) => {
         case 'INPUT_CHANGE':
             let formIsValid = true;
             for (const inputId in state.initialInputs) {
-                formIsValid = formIsValid && state.initialInputs[inputId].isValid;
+                if(inputId === action.inputId) {
+                    formIsValid = formIsValid && action.isValid;
+                } else {
+                    formIsValid = formIsValid && state.initialInputs[inputId].isValid;
+                }
             }
+            console.log(formIsValid);
         return {
             ...state,
             initialInputs: {
                 ...state.initialInputs,
                 [action.inputId]: { value: action.value, isValid: action.isValid }
             },
-            initialFormValidity: formIsValid
+            isValid: formIsValid
         }
         default: {
             return state;
@@ -43,7 +48,7 @@ const Signup = (props) => {
                 isValid: false
             }
             },
-            initialFormValidity: false
+            isValid: false
     });
 
     const inputHandler = useCallback((id, value, isValid) => {
