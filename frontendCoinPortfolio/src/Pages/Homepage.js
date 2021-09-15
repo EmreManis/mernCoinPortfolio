@@ -9,6 +9,7 @@ import TableBuilder from "../components/TableBuilder";
 import Backdrop from "../shared/Backdrop";
 import Spinner from "../shared/Spinner";
 import Signup from "../components/Auth/Signup";
+import Login from "../components/Auth/Login";
 
 const homePage = () => {
     return (
@@ -21,7 +22,8 @@ const homePage = () => {
                 {/*</div>*/}
                 {/*<Backdrop />*/}
                 {/*<Spinner />*/}
-                <Signup />
+                {/*<Signup />*/}
+                <Login />
             </div>
 
 

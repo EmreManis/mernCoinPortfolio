@@ -1,65 +1,34 @@
-import React, { useState ,useReducer, useCallback } from "react";
+import React, { useState } from "react";
 
 import Button from "../../shared/Button";
 import Input from "../../shared/Input";
 
 import * as validator from '../../shared/Validator';
+import { useForm} from "../../shared/hooks/form-hook";
 
-const formReducer = (state, action) => {
-    switch (action.type) {
-        case 'INPUT_CHANGE':
-            let formIsValid = true;
-            for (const inputId in state.initialInputs) {
-                if(inputId === action.inputId) {
-                    formIsValid = formIsValid && action.isValid;
-                } else {
-                    formIsValid = formIsValid && state.initialInputs[inputId].isValid;
-                }
-            }
-        return {
-            ...state,
-            initialInputs: {
-                ...state.initialInputs,
-                [action.inputId]: { value: action.value, isValid: action.isValid }
-            },
-            isValid: formIsValid
-        }
-        default: {
-            return state;
-        }
-    }
-}
 
 const Signup = (props) => {
 
-    const [formState, dispatch] = useReducer(formReducer, {
-         initialInputs:{
-             email: {
-                value: ' ',
-                isValid: false
+    const [formState, inputHandler] = useForm(
+         {
+                 email: {
+                    value: ' ',
+                    isValid: false
+                },
+                password: {
+                    value: ' ',
+                    isValid: false
+                },
+                confirmation:{
+                    value:' ',
+                    isValid: false
+                }
             },
-            password: {
-                value: ' ',
-                isValid: false
-            },
-            confirmation:{
-                value:' ',
-                isValid: false
-            }
-            },
-            isValid: false
-    });
+            false
+    );
 
     const [ error, setError ] = useState(false);
 
-    const inputHandler = useCallback((id, value, isValid) => {
-        dispatch({
-            type: 'INPUT_CHANGE',
-            value: value,
-            isValid: isValid,
-            inputId: id
-        });
-    }, []);
 
     const passwordHandler = (event) =>{
         event.preventDefault();
