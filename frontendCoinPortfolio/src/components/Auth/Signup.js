@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback } from "react";
+import React, { useState ,useReducer, useCallback } from "react";
 
 import Button from "../../shared/Button";
 import Input from "../../shared/Input";
@@ -16,7 +16,6 @@ const formReducer = (state, action) => {
                     formIsValid = formIsValid && state.initialInputs[inputId].isValid;
                 }
             }
-            console.log(formIsValid);
         return {
             ...state,
             initialInputs: {
@@ -36,20 +35,22 @@ const Signup = (props) => {
     const [formState, dispatch] = useReducer(formReducer, {
          initialInputs:{
              email: {
-                value: '',
+                value: ' ',
                 isValid: false
             },
             password: {
-                value: '',
+                value: ' ',
                 isValid: false
             },
             confirmation:{
-                value:'',
+                value:' ',
                 isValid: false
             }
             },
             isValid: false
     });
+
+    const [ error, setError ] = useState(false);
 
     const inputHandler = useCallback((id, value, isValid) => {
         dispatch({
@@ -60,15 +61,17 @@ const Signup = (props) => {
         });
     }, []);
 
-    const passwordHandler = (pass, conf) =>{
-        return (
-            pass === conf ? true : <p>Password doesnt match</p>
-        );
+    const passwordHandler = (event) =>{
+        event.preventDefault();
+        const pass  = formState.initialInputs.password.value;
+        const conf  = formState.initialInputs.confirmation.value;
+            return setError(pass !== conf)
     };
 
     return(
         <div className="w-full max-w-xs">
-            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={passwordHandler}>
+                {error && <p className="text-red-600 font-bold text-center text-lg">Password doesnt match</p>}
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                         Email
@@ -109,7 +112,7 @@ const Signup = (props) => {
                 <div className="flex items-center justify-between">
                     <Button
                         cssClass="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
-                        disabled={true}>
+                        disabled={!formState.isValid ? "opacity-50 cursor-not-allowed" : ""}>
                         Sign Up
                     </Button>
                     <Button cssClass="bg-red-500 hover:bg-red-600 py-2 px-4 text-white font-bold rounded focus:outline-none focus:shadow-outline" >
