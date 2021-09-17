@@ -12,11 +12,11 @@ const Login = (props) => {
     const [formState, inputHandler] = useForm(
       {
                 email: {
-                    value: ' ',
+                    value: '',
                     isValid: false
                 },
                 password: {
-                    value: ' ',
+                    value: '',
                     isValid: false
                 }
             },
