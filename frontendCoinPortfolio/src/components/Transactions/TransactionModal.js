@@ -60,13 +60,20 @@ const TransactionModal = (props) => {
                                         id="price-per-coin" value="90210"/>
                             </div>
                     </div>
-                    <div className="flex flex-wrap justify-between -mx-3 mb-2">
-                            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0 flex items-center">
-                                    <DatePicker
-                                        className="wrapper"
-                                        onChange={onChange}
-                                        value={value}
-                                    />
+                    <div className="flex flex-wrap -mx-3 mb-2">
+                            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                    <label
+                                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                        htmlFor="grid-zip">
+                                            Date
+                                    </label>
+
+                                            <DatePicker
+                                                className="wrapper"
+                                                onChange={onChange}
+                                                value={value}
+                                            />
+
                             </div>
 
                             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
