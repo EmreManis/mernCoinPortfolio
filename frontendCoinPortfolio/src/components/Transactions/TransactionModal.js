@@ -60,7 +60,7 @@ const TransactionModal = (props) => {
                                         id="price-per-coin" value="90210"/>
                             </div>
                     </div>
-                    <div className="flex flex-wrap -mx-3 mb-2">
+                    <div className="flex -mx-3 mb-2">
                             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                     <label
                                         className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -73,19 +73,36 @@ const TransactionModal = (props) => {
                                                 onChange={onChange}
                                                 value={value}
                                             />
-
                             </div>
 
                             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                     <label
                                         className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                         htmlFor="grid-zip">
-                                            Price Per Coin
+                                            Fee
                                     </label>
                                     <input
                                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                        id="price-per-coin" value="90210"/>
+                                        id="price-per-coin"/>
                             </div>
+                    </div>
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                    <label
+                                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                        htmlFor="grid-zip">
+                                            Notes
+                                    </label>
+                                    <textarea className="resize-none block appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" rows="4" cols="50">
+                                        Add Note
+                                    </textarea>
+                            </div>
+                    </div>
+                    <div className="flex -mx-px mb-6">
+                            <div className="w-full block bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight">
+                                    <span  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Total Spent: 5$</span>
+                            </div>
+
                     </div>
 
             </form>
@@ -93,4 +110,6 @@ const TransactionModal = (props) => {
 }
 
 export default TransactionModal;
+
+
 
