@@ -4,7 +4,7 @@ import Button from "../../shared/Button";
 import Input from "../../shared/Input";
 
 import * as validator from "../../shared/Validator";
-import { useForm} from "../../shared/hooks/form-hook";
+import { useForm } from "../../shared/hooks/form-hook";
 
 
 const Login = (props) => {

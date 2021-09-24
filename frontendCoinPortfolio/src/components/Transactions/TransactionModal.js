@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+import Input from "../../shared/Input";
+import { useForm } from "../../shared/hooks/form-hook";
+
 import DatePicker from 'react-date-picker';
 
 import "./DatePicker.css";
@@ -14,8 +17,7 @@ const TransactionModal = (props) => {
                     <div className="flex flex-wrap -mx-3 mb-6">
                             <div className="w-full px-3">
                                     <label
-                                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                        htmlFor="grid-password">
+                                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                             Coin Name
                                     </label>
                                     <div className="relative">
@@ -40,22 +42,20 @@ const TransactionModal = (props) => {
                     <div className="flex flex-wrap justify-between -mx-3 mb-2">
                             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                     <label
-                                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                        htmlFor="grid-city">
+                                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                             Quantity
                                     </label>
-                                    <input
+                                    <Input
                                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                         id="quantity" type="number" placeholder="0.00" min="0"/>
                             </div>
 
                             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                     <label
-                                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                        htmlFor="grid-zip">
+                                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                             Price Per Coin
                                     </label>
-                                    <input
+                                    <Input
                                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                         id="price-per-coin" value="90210"/>
                             </div>
@@ -63,8 +63,7 @@ const TransactionModal = (props) => {
                     <div className="flex -mx-3 mb-2">
                             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                     <label
-                                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                        htmlFor="grid-zip">
+                                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                             Date
                                     </label>
 
@@ -72,25 +71,24 @@ const TransactionModal = (props) => {
                                                 className="wrapper"
                                                 onChange={onChange}
                                                 value={value}
+                                                required
                                             />
                             </div>
 
                             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                     <label
-                                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                        htmlFor="grid-zip">
+                                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                             Fee
                                     </label>
-                                    <input
+                                    <Input
                                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                        id="price-per-coin"/>
+                                        id="price-per-coin" type="number" min="0"/>
                             </div>
                     </div>
                     <div className="flex flex-wrap -mx-3 mb-6">
                             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                     <label
-                                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                        htmlFor="grid-zip">
+                                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                             Notes
                                     </label>
                                     <textarea className="resize-none block appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" rows="4" cols="50">
@@ -104,7 +102,9 @@ const TransactionModal = (props) => {
                             </div>
 
                     </div>
-
+                    <div className="flex justify-center">
+                            <button className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Transaction</button>
+                    </div>
             </form>
         )
 }
