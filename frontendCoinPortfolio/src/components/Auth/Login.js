@@ -12,7 +12,7 @@ const Login = (props) => {
     const [formState, inputHandler] = useForm(
       {
                 email: {
-                    value: '',
+                    value: ' ',
                     isValid: false
                 },
                 password: {
@@ -23,7 +23,7 @@ const Login = (props) => {
          false
     );
 
-
+    console.log(formState);
     return(
         <div className="w-full max-w-xs">
             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">

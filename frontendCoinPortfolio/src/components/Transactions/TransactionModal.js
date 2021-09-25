@@ -16,7 +16,7 @@ const TransactionModal = (props) => {
             {
                         coin:{
                             value:'',
-                            isValid: false
+                            isValid: true
                         },
                         quantity:{
                             value:'',
@@ -24,15 +24,15 @@ const TransactionModal = (props) => {
                         },
                         pricePerCoin:{
                             value:'',
-                            isValid: false
+                            isValid: true
                         },
                         date:{
                             value:'',
-                            isValid: false
+                            isValid: true
                         },
                         fee:{
                             value:'',
-                            isValid:false
+                            isValid:true
                         },
                         notes:{
                             value:'',
@@ -43,6 +43,8 @@ const TransactionModal = (props) => {
                     );
 
         const [value, onChange] = useState(new Date());
+
+        console.log(formState);
 
         return (
             <form className="w-full max-w-lg">
@@ -55,7 +57,6 @@ const TransactionModal = (props) => {
                                     <div className="relative">
                                             <select
                                                 onChange={inputHandler}
-                                                validators={[validator.VALIDATOR_REQUIRE]}
                                                 className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                                 id="coin-name">
                                                     <option value="etherium">Etherium</option>
@@ -83,6 +84,7 @@ const TransactionModal = (props) => {
                                         element="input"
                                         validators={[validator.VALIDATOR_REQUIRE]}
                                         onInput={inputHandler}
+                                        errorMessage="Enter a valid Quantity"
                                         cssClass="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                         id="quantity" type="number" placeholder="0.00" min="0"/>
                             </div>
@@ -94,11 +96,10 @@ const TransactionModal = (props) => {
                                     </label>
                                     <Input
                                         element="input"
-                                        validators={[validator.VALIDATOR_REQUIRE]}
                                         onInput={inputHandler}
                                         cssClass="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                         type="number"
-                                        id="price-per-coin" value="90210"
+                                        id="price-per-coin"
                                         />
                             </div>
                     </div>
@@ -113,7 +114,6 @@ const TransactionModal = (props) => {
                                                 className="wrapper"
                                                 onChange={onChange}
                                                 value={value}
-                                                required
                                             />
                             </div>
 
@@ -124,10 +124,9 @@ const TransactionModal = (props) => {
                                     </label>
                                     <Input
                                         element="input"
-                                        validators={[validator.VALIDATOR_REQUIRE]}
                                         onInput={inputHandler}
                                         cssClass="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                        id="price-per-coin" type="number" min="0"/>
+                                        id="fee" type="number" min="0"/>
                             </div>
                     </div>
                     <div className="flex flex-wrap -mx-3 mb-6">
@@ -137,6 +136,7 @@ const TransactionModal = (props) => {
                                             Notes
                                     </label>
                                     <Input
+                                            id="notes"
                                             onInput={inputHandler}
                                             element="textarea"
                                             cssClass="resize-none block appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -153,7 +153,8 @@ const TransactionModal = (props) => {
 
                     </div>
                     <div className="flex justify-center">
-                            <button className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <button className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                    disabled={!formState.isValid ? "opacity-50 cursor-not-allowed" : ""}>
                                 Add Transaction
                             </button>
                     </div>
