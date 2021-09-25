@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import Input from "../../shared/Input";
 import { useForm } from "../../shared/hooks/form-hook";
+import * as validator from "../../shared/Validator"
 
 import DatePicker from 'react-date-picker';
 
@@ -9,6 +10,37 @@ import "./DatePicker.css";
 
 
 const TransactionModal = (props) => {
+
+
+        const [formState, inputHandler] = useForm(
+            {
+                        coin:{
+                            value:'',
+                            isValid: false
+                        },
+                        quantity:{
+                            value:'',
+                            isValid: false
+                        },
+                        pricePerCoin:{
+                            value:'',
+                            isValid: false
+                        },
+                        date:{
+                            value:'',
+                            isValid: false
+                        },
+                        fee:{
+                            value:'',
+                            isValid:false
+                        },
+                        notes:{
+                            value:'',
+                            isValid: true
+                        }
+                    },
+                    false
+                    );
 
         const [value, onChange] = useState(new Date());
 
@@ -22,11 +54,13 @@ const TransactionModal = (props) => {
                                     </label>
                                     <div className="relative">
                                             <select
+                                                onChange={inputHandler}
+                                                validators={[validator.VALIDATOR_REQUIRE]}
                                                 className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                                 id="coin-name">
-                                                    <option>Etherium</option>
-                                                    <option>BitCoin</option>
-                                                    <option>BitTorret</option>
+                                                    <option value="etherium">Etherium</option>
+                                                    <option value="bitCoin">BitCoin</option>
+                                                    <option value="bitTorret">BitTorret</option>
                                             </select>
                                             <div
                                                 className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -46,6 +80,8 @@ const TransactionModal = (props) => {
                                             Quantity
                                     </label>
                                     <Input
+                                        validators={[validator.VALIDATOR_REQUIRE]}
+                                        onInput={inputHandler}
                                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                         id="quantity" type="number" placeholder="0.00" min="0"/>
                             </div>
@@ -56,8 +92,12 @@ const TransactionModal = (props) => {
                                             Price Per Coin
                                     </label>
                                     <Input
+                                        validators={[validator.VALIDATOR_REQUIRE]}
+                                        onInput={inputHandler}
                                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                        id="price-per-coin" value="90210"/>
+                                        type="number"
+                                        id="price-per-coin" value="90210"
+                                        />
                             </div>
                     </div>
                     <div className="flex -mx-3 mb-2">
@@ -81,6 +121,8 @@ const TransactionModal = (props) => {
                                             Fee
                                     </label>
                                     <Input
+                                        validators={[validator.VALIDATOR_REQUIRE]}
+                                        onInput={inputHandler}
                                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                         id="price-per-coin" type="number" min="0"/>
                             </div>
@@ -91,9 +133,13 @@ const TransactionModal = (props) => {
                                         className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                             Notes
                                     </label>
-                                    <textarea className="resize-none block appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" rows="4" cols="50">
-                                        Add Note
-                                    </textarea>
+                                    <textarea
+                                            onChange={inputHandler}
+                                            className="resize-none block appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                            rows="4"
+                                            cols="50"
+                                            defaultValue="Add Note"/>
+
                             </div>
                     </div>
                     <div className="flex -mx-px mb-6">
@@ -103,7 +149,9 @@ const TransactionModal = (props) => {
 
                     </div>
                     <div className="flex justify-center">
-                            <button className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Transaction</button>
+                            <button className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                Add Transaction
+                            </button>
                     </div>
             </form>
         )
