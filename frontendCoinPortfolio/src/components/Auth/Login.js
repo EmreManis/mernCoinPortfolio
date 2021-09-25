@@ -32,6 +32,7 @@ const Login = (props) => {
                         Email
                     </label>
                     <Input
+                        element="input"
                         id="email"
                         type="text"
                         placeholder="Email"
@@ -45,6 +46,7 @@ const Login = (props) => {
                         Password
                     </label>
                     <Input
+                        element="input"
                         id="password"
                         type="password"
                         placeholder="******************"
