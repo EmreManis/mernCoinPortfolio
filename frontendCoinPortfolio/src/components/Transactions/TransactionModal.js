@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Input from "../../shared/Input";
 import { useForm } from "../../shared/hooks/form-hook";
@@ -41,6 +41,7 @@ const TransactionModal = (props) => {
                     },
                     false
                     );
+
 
         const [value, onChange] = useState(new Date());
 
@@ -95,11 +96,12 @@ const TransactionModal = (props) => {
                                             Price Per Coin
                                     </label>
                                     <Input
+                                        validators={[]}
                                         element="input"
                                         onInput={inputHandler}
                                         cssClass="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                         type="number"
-                                        id="price-per-coin"
+                                        id="pricePerCoin"
                                         />
                             </div>
                     </div>
@@ -123,6 +125,8 @@ const TransactionModal = (props) => {
                                             Fee
                                     </label>
                                     <Input
+                                        id="fee"
+                                        validators={[]}
                                         element="input"
                                         onInput={inputHandler}
                                         cssClass="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -136,6 +140,7 @@ const TransactionModal = (props) => {
                                             Notes
                                     </label>
                                     <Input
+                                            validators={[]}
                                             id="notes"
                                             onInput={inputHandler}
                                             element="textarea"
