@@ -45,16 +45,31 @@ const Input = props => {
         dispatch({type: 'TOUCH'});
     }
 
+    const element =
+        props.element === "input" ? (
+            <input
+                className={`${cssStyle}`+" "+ props.cssClass}
+                id={props.id}
+                type={props.type}
+                placeholder={props.placeholder}
+                value={inputState.value}
+                onChange={changedHandler}
+                onBlur={touchedHandler}/>
+        ):(
+            <textarea
+                className={props.cssClass}
+                id={props.id}
+                placeholder={props.placeholder}
+                value={inputState.value}
+                onChange={changedHandler}
+                rows={props.rows}
+                cols={props.cols}
+            />
+        );
+
         return (
             <React.Fragment>
-                <input
-                    className={`${cssStyle}`+" "+ props.cssClass}
-                    id={props.id}
-                    type={props.type}
-                    placeholder={props.placeholder}
-                    value={inputState.value}
-                    onChange={changedHandler}
-                    onBlur={touchedHandler}/>
+                {element}
                 {inputState.isTouched && !inputState.isValid && <p className="text-red-600">{props.errorMessage}</p>}
             </React.Fragment>
 

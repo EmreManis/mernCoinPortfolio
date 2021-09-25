@@ -80,9 +80,10 @@ const TransactionModal = (props) => {
                                             Quantity
                                     </label>
                                     <Input
+                                        element="input"
                                         validators={[validator.VALIDATOR_REQUIRE]}
                                         onInput={inputHandler}
-                                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                        cssClass="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                         id="quantity" type="number" placeholder="0.00" min="0"/>
                             </div>
 
@@ -92,9 +93,10 @@ const TransactionModal = (props) => {
                                             Price Per Coin
                                     </label>
                                     <Input
+                                        element="input"
                                         validators={[validator.VALIDATOR_REQUIRE]}
                                         onInput={inputHandler}
-                                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                        cssClass="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                         type="number"
                                         id="price-per-coin" value="90210"
                                         />
@@ -121,9 +123,10 @@ const TransactionModal = (props) => {
                                             Fee
                                     </label>
                                     <Input
+                                        element="input"
                                         validators={[validator.VALIDATOR_REQUIRE]}
                                         onInput={inputHandler}
-                                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                        cssClass="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                         id="price-per-coin" type="number" min="0"/>
                             </div>
                     </div>
@@ -133,12 +136,13 @@ const TransactionModal = (props) => {
                                         className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                             Notes
                                     </label>
-                                    <textarea
-                                            onChange={inputHandler}
-                                            className="resize-none block appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    <Input
+                                            onInput={inputHandler}
+                                            element="textarea"
+                                            cssClass="resize-none block appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                             rows="4"
                                             cols="50"
-                                            defaultValue="Add Note"/>
+                                            placeholder="Add Note"/>
 
                             </div>
                     </div>
