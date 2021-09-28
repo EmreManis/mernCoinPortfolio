@@ -66,6 +66,7 @@ const TransactionModal = (props) => {
       
   };
   console.log(formState);
+  console.log(formState);
    // console.log(dummyData);
   return (
     <form className="w-full max-w-lg">
