@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 import Input from "../../shared/Input";
 import { useForm } from "../../shared/hooks/form-hook";
@@ -9,22 +9,29 @@ import DatePicker from "react-date-picker";
 import "./DatePicker.css";
 
 const TransactionModal = (props) => {
-  const [dummyData, setDummyData] = useState({
+  const [selectedOption, setSelectedOption] = useState({
     selectedOption: {
       value: "etherium",
-      price: 34444,
-    }
+      // price: 34444,
+    },
   });
 
-//   ,
-//     bitCoin: {
-//       name: "BitCoin",
-//       pricePerCoin: 46759,
-//     },
-//     bitTorret: {
-//       name: "Bittoret",
-//       pricePerCoin: 7242,
-//     }
+  const dummyData = {
+    etherium: {
+      name: "Etherium",
+      pricePerCoin: 55555,
+    },
+    bitCoin: {
+      name: "BitCoin",
+      pricePerCoin: 46759,
+    },
+    bitTorret: {
+      name: "Bittoret",
+      pricePerCoin: 7242,
+    },
+  };
+
+  const [loadedData, setLoadedData] = useState();
 
   const [formState, inputHandler] = useForm(
     {
@@ -59,14 +66,30 @@ const TransactionModal = (props) => {
   const [value, onChange] = useState(new Date());
 
   const changedHandler = (event, price) => {
-    console.log(price);
-      setDummyData({
-          value: event.target.value
-      });
-      
+    setSelectedOption({
+      value: event.target.value,
+    });
+    loadData(dummyData, event.target.value);
   };
-  console.log(formState);
-   // console.log(dummyData);
+
+  const loadData = useCallback(
+    (data, valu) => {
+      let val = valu;
+      for (const props in data) {
+        if (val === props) {
+          setLoadedData({
+            props: {
+              name: data[props].name,
+              pricePerCoin: data[props].pricePerCoin,
+            },
+          });
+        }
+      }
+    },
+    [selectedOption]
+  );
+  console.log(loadedData);
+  //  console.log(selectedOption);
   return (
     <form className="w-full max-w-lg">
       <div className="flex flex-wrap -mx-3 mb-6">
@@ -76,7 +99,9 @@ const TransactionModal = (props) => {
           </label>
           <div className="relative">
             <select
-              onChange={(event) =>changedHandler(event, 36666)}
+              onChange={(event) => {
+                changedHandler(event);
+              }}
               className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="coin-name"
             >
