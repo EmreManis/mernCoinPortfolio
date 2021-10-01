@@ -25,12 +25,14 @@ const Input = (props) => {
     "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
 
   const [inputState, dispatch] = useReducer(inputReducer, {
-    value: props.value || "",
+    value: props.value ||"",
     isValid: props.valid || false,
     isTouched: false,
   });
   const { id, onInput } = props;
   const { value, isValid } = inputState;
+
+  console.log(props.value);
 
   useEffect(() => {
     onInput(id, value, isValid);
@@ -55,7 +57,7 @@ const Input = (props) => {
         id={props.id}
         type={props.type}
         placeholder={props.placeholder}
-        value={props.value || inputState.value}
+        value={inputState.value}
         onChange={changedHandler}
         onBlur={touchedHandler}
       />

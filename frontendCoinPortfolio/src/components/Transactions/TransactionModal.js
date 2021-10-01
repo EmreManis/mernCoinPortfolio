@@ -10,9 +10,7 @@ import "./DatePicker.css";
 
 const TransactionModal = (props) => {
   const [selectedOption, setSelectedOption] = useState({
-    selectedOption: {
-      value: "etherium",
-    },
+      value: "selected"
   });
 
   const dummyData = {
@@ -32,7 +30,7 @@ const TransactionModal = (props) => {
 
   const [loadedData, setLoadedData] = useState({
     name: "Select",
-    pricePerCoin: "" || null,
+    pricePerCoin: "",
   });
 
   const [formState, inputHandler] = useForm(
@@ -75,6 +73,8 @@ const TransactionModal = (props) => {
   };
 
   const loadData = useCallback(
+
+  //will be change later for performance 
     (data, valu) => {
       let val = valu;
       for (const props in data) {
@@ -88,7 +88,6 @@ const TransactionModal = (props) => {
     },
     [selectedOption]
   );
-  console.log(formState);
 
   return (
     <form className="w-full max-w-lg">
@@ -99,9 +98,11 @@ const TransactionModal = (props) => {
           </label>
           <div className="relative">
             <select
+              value={selectedOption.value}
               onChange={(event) => {
                 changedHandler(event);
               }}
+              // onInput={inputHandler}
               className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="coin-name"
             >
