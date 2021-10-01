@@ -11,7 +11,7 @@ import "./DatePicker.css";
 const TransactionModal = (props) => {
   const [selectedOption, setSelectedOption] = useState({
     selectedOption: {
-      value: "etherium"
+      value: "etherium",
     },
   });
 
@@ -31,8 +31,8 @@ const TransactionModal = (props) => {
   };
 
   const [loadedData, setLoadedData] = useState({
-        name:"Select",
-        pricePerCoin: ""
+    name: "Select",
+    pricePerCoin: "" || null,
   });
 
   const [formState, inputHandler] = useForm(
@@ -79,21 +79,16 @@ const TransactionModal = (props) => {
       let val = valu;
       for (const props in data) {
         if (val === props) {
-          setLoadedData({        
-              name: data[props].name,
-              pricePerCoin: data[props].pricePerCoin,
+          setLoadedData({
+            name: data[props].name,
+            pricePerCoin: data[props].pricePerCoin,
           });
         }
       }
     },
     [selectedOption]
   );
-  console.log(loadedData);
-  const priceCoin = useCallback(
-    () => {
-      
-    }
-    ,[loadedData]);
+  console.log(formState);
 
   return (
     <form className="w-full max-w-lg">
@@ -156,7 +151,7 @@ const TransactionModal = (props) => {
             cssClass="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             type="number"
             id="pricePerCoin"
-            value={priceCoin}
+            value={loadedData.pricePerCoin}
             valid={true}
           />
         </div>

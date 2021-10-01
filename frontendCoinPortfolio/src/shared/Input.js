@@ -55,7 +55,7 @@ const Input = (props) => {
         id={props.id}
         type={props.type}
         placeholder={props.placeholder}
-        value={inputState.value}
+        value={props.value || inputState.value}
         onChange={changedHandler}
         onBlur={touchedHandler}
       />
