@@ -11,8 +11,7 @@ import "./DatePicker.css";
 const TransactionModal = (props) => {
   const [selectedOption, setSelectedOption] = useState({
     selectedOption: {
-      value: "etherium",
-      // price: 34444,
+      value: "etherium"
     },
   });
 
@@ -31,7 +30,10 @@ const TransactionModal = (props) => {
     },
   };
 
-  const [loadedData, setLoadedData] = useState();
+  const [loadedData, setLoadedData] = useState({
+        name:"Select",
+        pricePerCoin: ""
+  });
 
   const [formState, inputHandler] = useForm(
     {
@@ -77,11 +79,9 @@ const TransactionModal = (props) => {
       let val = valu;
       for (const props in data) {
         if (val === props) {
-          setLoadedData({
-            props: {
+          setLoadedData({        
               name: data[props].name,
               pricePerCoin: data[props].pricePerCoin,
-            },
           });
         }
       }
@@ -89,7 +89,12 @@ const TransactionModal = (props) => {
     [selectedOption]
   );
   console.log(loadedData);
-  //  console.log(selectedOption);
+  const priceCoin = useCallback(
+    () => {
+      
+    }
+    ,[loadedData]);
+
   return (
     <form className="w-full max-w-lg">
       <div className="flex flex-wrap -mx-3 mb-6">
@@ -105,6 +110,7 @@ const TransactionModal = (props) => {
               className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="coin-name"
             >
+              <option value="selected">Select Coin</option>
               <option value="etherium">Etherium</option>
               <option value="bitCoin">BitCoin</option>
               <option value="bitTorret">BitTorret</option>
@@ -150,7 +156,7 @@ const TransactionModal = (props) => {
             cssClass="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             type="number"
             id="pricePerCoin"
-            value={34444}
+            value={priceCoin}
             valid={true}
           />
         </div>
