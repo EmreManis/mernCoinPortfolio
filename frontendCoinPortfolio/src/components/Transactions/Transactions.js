@@ -1,12 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-import Button from "../../shared/Button";
 
 const Transactions = () =>{
 
     return (
         <div className="flex justify-end w-4/5 space-x-2">
-            <Button cssClass={"bg-blue-500 hover:bg-blue-600"}>Add Coin</Button>
+            <Link className={"text-gray-100 py-1 px-3 rounded-lg bg-blue-500 hover:bg-blue-600"} to="/transaction">Add Coin</Link>
         </div>
     );
 }
