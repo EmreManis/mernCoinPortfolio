@@ -8,8 +8,8 @@ import Chart from "../components/Chart/Chart";
 import TableBuilder from "../components/TableBuilder";
 import Backdrop from "../shared/Backdrop";
 import Spinner from "../shared/Spinner";
-import Signup from "../components/Auth/Signup";
-import Login from "../components/Auth/Login";
+import Signup from "./Auth/Signup";
+import Login from "./Auth/Login";
 import TransactionModal from "../components/Transactions/TransactionModal";
 
 const homePage = () => {
@@ -17,15 +17,15 @@ const homePage = () => {
             <div className="contain">
                 <Navbar />
                 <Transactions />
-                {/*<div className="flex">*/}
-                {/*    <Chart />*/}
-                {/*    <TableBuilder />*/}
-                {/*</div>*/}
+                <div className="flex mt-5">
+                   <Chart />
+                   <TableBuilder />
+                </div>
                 {/*<Backdrop />*/}
                 {/*<Spinner />*/}
                 {/*<Signup />*/}
                 {/*<Login />*/}
-                <TransactionModal />
+                {/* <TransactionModal /> */}
             </div>
 
 

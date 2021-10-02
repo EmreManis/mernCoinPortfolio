@@ -19,8 +19,8 @@ const MainNavigation  = (props) =>{
                 <p>Profit/Loss: <span className="text-gray-700">{profitLoss}usd</span></p>
             </div>
                 <ul className="flex justify-end items-center w-1/5 space-x-2">
-                    <Button cssClass={"bg-blue-500 hover:bg-blue-600 py-2 px-4 "}>Log In</Button>
-                    <Button cssClass={"bg-red-500 hover:bg-red-600 py-2 px-4"}>Sign Up</Button>
+                    <li className="bg-blue-500 hover:bg-blue-600 py-2 px-4 text-gray-100 py-1 px-3 rounded-lg cursor-pointer">Log In</li>
+                    <li className="bg-red-500 hover:bg-red-600 py-2 px-4 text-gray-100 py-1 px-3 rounded-lg cursor-pointer">Sign Up</li>
                 </ul>
         </nav>
     );
