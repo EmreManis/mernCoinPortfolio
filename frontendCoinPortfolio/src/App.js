@@ -21,11 +21,13 @@ function App() {
           <Homepage/>
         </Route>
         <Route path="/login">
+          <Homepage />
           <Login/>
         </Route>
         <Route path="/signup">
+        <Homepage />
           <Signup/>
-        </Route>
+          </Route>
         <Route path="/transaction">
           <TransactionModal />
         </Route>
