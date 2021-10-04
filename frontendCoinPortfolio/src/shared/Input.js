@@ -22,7 +22,7 @@ const inputReducer = (state, action) => {
 
 const Input = (props) => {
   const cssStyle =
-    "block bg-gray-200 border focus:bg-white focus:border-gray-500 shadow appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
+    "block bg-gray-200 border focus:bg-white focus:border-gray-500 shadow appearance-none rounded w-full py-3 px-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
 
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.value || "",
@@ -87,7 +87,7 @@ const Input = (props) => {
     <React.Fragment>
       {element}
       {inputState.isTouched && !inputState.isValid && (
-        <p className="text-red-600">{props.errorMessage}</p>
+        <span className="text-red-600">{props.errorMessage}</span>
       )}
     </React.Fragment>
   );

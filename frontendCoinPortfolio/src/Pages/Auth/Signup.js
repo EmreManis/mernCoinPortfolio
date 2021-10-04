@@ -43,7 +43,7 @@ const Signup = (props) => {
       <Backdrop />
       <div className="w-full my-16 flex justify-center z-50 absolute top-0 fadeIn">
         <form
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          className="bg-white shadow-md rounded px-16 pt-6 pb-8 mb-4"
           onSubmit={passwordHandler}
         >
           {error && (
@@ -99,7 +99,7 @@ const Signup = (props) => {
               placeholder="******************"
               onInput={inputHandler}
               validators={[validator.VALIDATOR_MINLENGTH(5)]}
-              errorMessage="Password need to be minimum 5 character and match with Password"
+              errorMessage="Password need to match with Password"
             />
           </div>
           <div className="flex items-center justify-between">
