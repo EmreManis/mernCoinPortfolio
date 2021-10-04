@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom"; 
+import { useHistory, useParams } from "react-router-dom"; 
 
 import Input from "../../shared/Input";
 import { useForm } from "../../shared/hooks/form-hook";
@@ -13,12 +13,16 @@ import "./DatePicker.css";
 
 const TransactionModal = (props) => {
   const [selectedOption, setSelectedOption] = useState({
-    value: "select",
+    value: "select"
   });
 
   let history = useHistory();
 
   const dummyData = {
+    select: {
+      name: "Select",
+      pricePerCoin: "",
+    },
     etherium: {
       name: "Etherium",
       pricePerCoin: 55555,
@@ -67,20 +71,23 @@ const TransactionModal = (props) => {
     },
     false
   );
-
+   
   const [value, onChange] = useState(new Date());
 
-  const changedHandler = (event, price) => {
+  const changedHandler = (event) => {
     setSelectedOption({
       value: event.target.value,
     });    
   };
+  
 
   useEffect(() =>{
     history.push(`/transaction/${selectedOption.value}`);
   },[selectedOption.value]);
 
-
+  const { coinName } = useParams();
+  let identifiedCoin = Object.keys(dummyData).find(p => p === coinName);
+  console.log(identifiedCoin)
   return (
     <React.Fragment>
       <Backdrop />
@@ -141,7 +148,7 @@ const TransactionModal = (props) => {
                 onInput={inputHandler}
                 type="number"
                 id="pricePerCoin"
-                value={loadedData.pricePerCoin}
+                // value={dummyData[identifiedCoin].pricePerCoin}
                 valid={true}
               />
             </div>

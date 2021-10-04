@@ -29,10 +29,9 @@ const Input = (props) => {
     isValid: props.valid || false,
     isTouched: false,
   });
+  
   const { id, onInput } = props;
   const { value, isValid } = inputState;
-
-  console.log(props.value);
 
   useEffect(() => {
     onInput(id, value, isValid);
