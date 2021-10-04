@@ -22,10 +22,10 @@ const inputReducer = (state, action) => {
 
 const Input = (props) => {
   const cssStyle =
-    "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
+    "block bg-gray-200 border focus:bg-white focus:border-gray-500 shadow appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
 
   const [inputState, dispatch] = useReducer(inputReducer, {
-    value: props.value ||"",
+    value: props.value || "",
     isValid: props.valid || false,
     isTouched: false,
   });
@@ -52,25 +52,35 @@ const Input = (props) => {
 
   const element =
     props.element === "input" ? (
-      <input
-        className={`${cssStyle}` + " " + props.cssClass}
-        id={props.id}
-        type={props.type}
-        placeholder={props.placeholder}
-        value={inputState.value}
-        onChange={changedHandler}
-        onBlur={touchedHandler}
-      />
+      <React.Fragment>
+        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          {props.labelInput}
+        </label>
+        <input
+          className={`${cssStyle}` + " " + props.cssClass}
+          id={props.id}
+          type={props.type}
+          placeholder={props.placeholder}
+          value={inputState.value}
+          onChange={changedHandler}
+          onBlur={touchedHandler}
+        />
+      </React.Fragment>
     ) : (
-      <textarea
-        className={props.cssClass}
-        id={props.id}
-        placeholder={props.placeholder}
-        value={inputState.value}
-        onChange={changedHandler}
-        rows={props.rows}
-        cols={props.cols}
-      />
+      <React.Fragment>
+        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          {props.labelInput}
+        </label>
+        <textarea
+          className={`${cssStyle}` + " " + props.cssClass}
+          id={props.id}
+          placeholder={props.placeholder}
+          value={inputState.value}
+          onChange={changedHandler}
+          rows={props.rows}
+          cols={props.cols}
+        />
+      </React.Fragment>
     );
 
   return (
