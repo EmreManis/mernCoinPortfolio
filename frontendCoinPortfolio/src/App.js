@@ -28,7 +28,7 @@ function App() {
         <Homepage />
           <Signup/>
           </Route>
-        <Route path="/transaction">
+        <Route path="/transaction/:coinName">
           <Homepage />
           <TransactionModal />
         </Route>

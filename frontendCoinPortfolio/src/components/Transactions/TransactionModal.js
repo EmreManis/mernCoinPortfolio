@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom"; 
 
 import Input from "../../shared/Input";
 import { useForm } from "../../shared/hooks/form-hook";
@@ -12,8 +13,10 @@ import "./DatePicker.css";
 
 const TransactionModal = (props) => {
   const [selectedOption, setSelectedOption] = useState({
-    value: "selected",
+    value: "select",
   });
+
+  let history = useHistory();
 
   const dummyData = {
     etherium: {
@@ -70,25 +73,13 @@ const TransactionModal = (props) => {
   const changedHandler = (event, price) => {
     setSelectedOption({
       value: event.target.value,
-    });
-    loadData(dummyData, event.target.value);
+    });    
   };
 
-  const loadData = useCallback(
-    //will be change later for performance
-    (data, valu) => {
-      let val = valu;
-      for (const props in data) {
-        if (val === props) {
-          setLoadedData({
-            name: data[props].name,
-            pricePerCoin: data[props].pricePerCoin,
-          });
-        }
-      }
-    },
-    [selectedOption]
-  );
+  useEffect(() =>{
+    history.push(`/transaction/${selectedOption.value}`);
+  },[selectedOption.value]);
+
 
   return (
     <React.Fragment>
@@ -110,7 +101,7 @@ const TransactionModal = (props) => {
                   className="block bg-gray-200 border border-gray-200 focus:bg-white focus:border-gray-500 shadow appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="coin-name"
                 >
-                  <option value="selected">Select Coin</option>
+                  <option value="select">Select Coin</option>
                   <option value="etherium">Etherium</option>
                   <option value="bitCoin">BitCoin</option>
                   <option value="bitTorret">BitTorret</option>
