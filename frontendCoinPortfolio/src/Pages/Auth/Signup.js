@@ -36,6 +36,8 @@ const Signup = (props) => {
     return setError(pass !== conf);
   };
 
+ 
+
   return (
     <React.Fragment>
       <Backdrop />
@@ -91,6 +93,7 @@ const Signup = (props) => {
               Confirm Password
             </label>
             <Input
+              element="input"
               id="confirmation"
               type="password"
               placeholder="******************"
@@ -108,7 +111,8 @@ const Signup = (props) => {
             >
               Sign Up
             </Button>
-            <Button cssClass="bg-red-500 hover:bg-red-600 py-2 px-4 text-white font-bold rounded focus:outline-none focus:shadow-outline">
+            <Button cssClass="bg-red-500 hover:bg-red-600 py-2 px-4 text-white font-bold rounded focus:outline-none focus:shadow-outline"
+                    buttonType="cancel">
               Cancel
             </Button>
           </div>
