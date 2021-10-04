@@ -1,0 +1,6 @@
+button:disabled,
+button:hover:disabled,
+button:active:disabled {
+  opacity: 0.5;  
+  cursor: not-allowed;
+}

@@ -105,9 +105,7 @@ const Signup = (props) => {
           <div className="flex items-center justify-between">
             <Button
               cssClass="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
-              disabled={
-                !formState.isValid ? "opacity-50 cursor-not-allowed" : ""
-              }
+              disabled={!formState.isValid}
             >
               Sign Up
             </Button>

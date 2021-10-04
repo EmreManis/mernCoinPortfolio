@@ -29,6 +29,7 @@ function App() {
           <Signup/>
           </Route>
         <Route path="/transaction">
+          <Homepage />
           <TransactionModal />
         </Route>
         <Redirect to="/"/>

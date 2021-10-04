@@ -1,6 +1,9 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
+import "./Button.css";
+
+
 const Button = (props) => {
   const cssStyle = "text-gray-100 py-1 px-3 rounded-lg";
 
@@ -13,7 +16,7 @@ const Button = (props) => {
   if (props.buttonType === "cancel") {
     return (
       <button
-        className={`${cssStyle}` + " " + props.cssClass + " " + props.disabled}
+        className={`${cssStyle}` + " " + props.cssClass}
         onClick={closeHandler}
       >
         {props.children}
@@ -22,8 +25,9 @@ const Button = (props) => {
   } else {
     return (
       <button
-        className={`${cssStyle}` + " " + props.cssClass + " " + props.disabled}
+        className={`${cssStyle}` + " " + props.cssClass}
         onClick={props.onClick}
+        disabled={props.disabled}
       >
         {props.children}
       </button>
