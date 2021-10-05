@@ -20,18 +20,19 @@ const inputReducer = (state, action) => {
   }
 };
 
-const Input = (props) => {
+const Input = props => {
   const cssStyle =
     "block bg-gray-200 border focus:bg-white focus:border-gray-500 shadow appearance-none rounded w-full py-3 px-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
 
   const [inputState, dispatch] = useReducer(inputReducer, {
-    value: props.value || "",
-    isValid: props.valid || false,
+    value: props.value || '',
+    isValid:props.valid || false,
     isTouched: false,
   });
-  
+
   const { id, onInput } = props;
   const { value, isValid } = inputState;
+  // console.log(inputState);
 
   useEffect(() => {
     onInput(id, value, isValid);

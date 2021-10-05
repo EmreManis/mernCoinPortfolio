@@ -32,7 +32,7 @@ const TransactionModal = (props) => {
       pricePerCoin: 46759,
     },
     bitTorret: {
-      name: "Bittoret",
+      name: "BitToret",
       pricePerCoin: 7242,
     },
   };
@@ -87,7 +87,8 @@ const TransactionModal = (props) => {
 
   const { coinName } = useParams();
   let identifiedCoin = Object.keys(dummyData).find(p => p === coinName);
-  console.log(identifiedCoin)
+  console.log(identifiedCoin);
+
   return (
     <React.Fragment>
       <Backdrop />
@@ -143,12 +144,12 @@ const TransactionModal = (props) => {
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <Input
                 labelInput="Price Per Coin"
-                validators={[]}
+                validators={[validator.VALIDATOR_REQUIRE]}
                 element="input"
                 onInput={inputHandler}
                 type="number"
                 id="pricePerCoin"
-                // value={dummyData[identifiedCoin].pricePerCoin}
+                // value={dummyData[identifiedCoin] ? dummyData[identifiedCoin].pricePerCoin : ""}
                 valid={true}
               />
             </div>
@@ -169,7 +170,7 @@ const TransactionModal = (props) => {
               <Input
                 labelInput="Fee"
                 id="fee"
-                validators={[]}
+                validators={[validator.VALIDATOR_REQUIRE]}
                 element="input"
                 onInput={inputHandler}
                 id="fee"
@@ -182,7 +183,7 @@ const TransactionModal = (props) => {
             <div className="w-full px-3 mb-6 md:mb-0">
               <Input
                 labelInput="Notes"
-                validators={[]}
+                validators={[validator.VALIDATOR_REQUIRE]}
                 id="notes"
                 onInput={inputHandler}
                 element="textarea"
