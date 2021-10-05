@@ -13,7 +13,7 @@ import "./DatePicker.css";
 
 const TransactionModal = (props) => {
   const [selectedOption, setSelectedOption] = useState({
-    value: "select"
+    value: "etherium"
   });
 
   let history = useHistory();
@@ -37,10 +37,6 @@ const TransactionModal = (props) => {
     },
   };
 
-  const [loadedData, setLoadedData] = useState({
-    name: "Select",
-    pricePerCoin: "",
-  });
 
   const [formState, inputHandler] = useForm(
     {
@@ -80,7 +76,7 @@ const TransactionModal = (props) => {
     });    
   };
   
-
+ 
   useEffect(() =>{
     history.push(`/transaction/${selectedOption.value}`);
   },[selectedOption.value]);
@@ -109,7 +105,6 @@ const TransactionModal = (props) => {
                   className="block bg-gray-200 border border-gray-200 focus:bg-white focus:border-gray-500 shadow appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="coin-name"
                 >
-                  <option value="select">Select Coin</option>
                   <option value="etherium">Etherium</option>
                   <option value="bitCoin">BitCoin</option>
                   <option value="bitTorret">BitTorret</option>
@@ -149,7 +144,7 @@ const TransactionModal = (props) => {
                 onInput={inputHandler}
                 type="number"
                 id="pricePerCoin"
-                // value={dummyData[identifiedCoin] ? dummyData[identifiedCoin].pricePerCoin : ""}
+                value={dummyData[identifiedCoin].pricePerCoin}
                 valid={true}
               />
             </div>
