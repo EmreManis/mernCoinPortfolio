@@ -73,6 +73,8 @@ const TransactionModal = (props) => {
   };
   
   console.log(formState);
+  const { coinName } = useParams();
+  let identifiedCoin = Object.keys(dummyData).find(p => p === coinName);
  
   useEffect(() =>{
     history.push(`/transaction/${selectedOption.value}`);
@@ -90,10 +92,7 @@ const TransactionModal = (props) => {
       },
       false
     )
-  },[selectedOption.value, setFormData]);
-
-  const { coinName } = useParams();
-  let identifiedCoin = Object.keys(dummyData).find(p => p === coinName);
+  },[selectedOption.value, setFormData, coinName]);
 
   return (
     <React.Fragment>
