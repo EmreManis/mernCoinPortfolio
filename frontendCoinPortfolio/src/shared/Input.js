@@ -25,14 +25,15 @@ const Input = props => {
     "block bg-gray-200 border focus:bg-white focus:border-gray-500 shadow appearance-none rounded w-full py-3 px-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
 
   const [inputState, dispatch] = useReducer(inputReducer, {
-    value: props.value || '',
+    value: props.initialValue || '',
     isValid:props.valid || false,
     isTouched: false,
   });
 
   const { id, onInput } = props;
   const { value, isValid } = inputState;
-  // console.log(inputState);
+  
+  console.log(props.initialValue);
 
   useEffect(() => {
     onInput(id, value, isValid);
@@ -51,11 +52,7 @@ const Input = props => {
   };
 
   const element =
-    props.element === "input" ? (
-      <React.Fragment>
-        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-          {props.labelInput}
-        </label>
+    props.element === "input" ? (     
         <input
           className={`${cssStyle}` + " " + props.cssClass}
           id={props.id}
@@ -65,12 +62,7 @@ const Input = props => {
           onChange={changedHandler}
           onBlur={touchedHandler}
         />
-      </React.Fragment>
-    ) : (
-      <React.Fragment>
-        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-          {props.labelInput}
-        </label>
+    ) : ( 
         <textarea
           className={`${cssStyle}` + " " + props.cssClass}
           id={props.id}
@@ -80,11 +72,13 @@ const Input = props => {
           rows={props.rows}
           cols={props.cols}
         />
-      </React.Fragment>
     );
 
   return (
     <React.Fragment>
+       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          {props.labelInput}
+        </label>
       {element}
       {inputState.isTouched && !inputState.isValid && (
         <span className="text-red-600">{props.errorMessage}</span>
