@@ -19,21 +19,17 @@ const TransactionModal = (props) => {
   let history = useHistory();
 
   const dummyData = {
-    select: {
-      name: "Select",
-      pricePerCoin: "",
-    },
     etherium: {
       name: "Etherium",
-      pricePerCoin: 55555,
+      pricePerCoin: 11111,
     },
     bitCoin: {
       name: "BitCoin",
-      pricePerCoin: 46759,
+      pricePerCoin: 22222,
     },
     bitTorret: {
       name: "BitToret",
-      pricePerCoin: 7242,
+      pricePerCoin: 3333,
     },
   };
 
@@ -41,7 +37,7 @@ const TransactionModal = (props) => {
   const [formState, inputHandler, setFormData] = useForm(
     {
       coin: {
-        value: "",
+        value: "etherium",
         isValid: true,
       },
       quantity: {
@@ -50,7 +46,7 @@ const TransactionModal = (props) => {
       },
       pricePerCoin: {
         value: "",
-        isValid: true,
+        isValid: false,
       },
       date: {
         value: "",
@@ -76,12 +72,17 @@ const TransactionModal = (props) => {
     });    
   };
   
+  console.log(formState);
  
   useEffect(() =>{
     history.push(`/transaction/${selectedOption.value}`);
     setFormData(
       {   
             ...formState.inputs,
+            coin:{
+              value:selectedOption.value,
+              isValid: true
+            },
             pricePerCoin:{
               value: dummyData[identifiedCoin].pricePerCoin,
               isValid: true

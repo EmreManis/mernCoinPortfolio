@@ -32,8 +32,6 @@ const Input = props => {
 
   const { id, onInput } = props;
   const { value, isValid } = inputState;
-  
-  console.log(props.initialValue);
 
   useEffect(() => {
     onInput(id, value, isValid);
@@ -58,7 +56,7 @@ const Input = props => {
           id={props.id}
           type={props.type}
           placeholder={props.placeholder}
-          value={inputState.value}
+          value={props.initialValue}
           onChange={changedHandler}
           onBlur={touchedHandler}
         />
