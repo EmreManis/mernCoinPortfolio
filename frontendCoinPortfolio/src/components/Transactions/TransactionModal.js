@@ -45,7 +45,7 @@ const TransactionModal = (props) => {
         isValid: false,
       },
       pricePerCoin: {
-        value: "",
+        value: "1111",
         isValid: false,
       },
       date: {
@@ -73,11 +73,9 @@ const TransactionModal = (props) => {
   };
   
   console.log(formState);
-  const { coinName } = useParams();
-  let identifiedCoin = Object.keys(dummyData).find(p => p === coinName);
- 
+  
   useEffect(() =>{
-    history.push(`/transaction/${selectedOption.value}`);
+    history.push(`/transaction/${selectedOption.value}`);  
     setFormData(
       {   
             ...formState.inputs,
@@ -86,13 +84,13 @@ const TransactionModal = (props) => {
               isValid: true
             },
             pricePerCoin:{
-              value: dummyData[identifiedCoin].pricePerCoin,
+              value: dummyData[selectedOption.value].pricePerCoin,
               isValid: true
             }         
       },
       false
     )
-  },[selectedOption.value, setFormData, coinName]);
+  },[selectedOption]);
 
   return (
     <React.Fragment>
