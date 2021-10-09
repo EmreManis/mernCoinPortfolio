@@ -71,6 +71,19 @@ const TransactionModal = (props) => {
       value: event.target.value,
     });    
   };
+
+  const dateHandler = (val) => {
+    onChange(val);
+    setFormData(
+      {
+        ...formState.inputs,
+        date: {
+          value: value.toString(),
+          isValid: true
+        }
+      }
+    )
+  }
   
   console.log(formState);
   
@@ -163,8 +176,9 @@ const TransactionModal = (props) => {
               </label>
               <DatePicker
                 className="wrapper"
-                onChange={onChange}
+                onChange={dateHandler}
                 value={value}
+                required
               />
             </div>
 
