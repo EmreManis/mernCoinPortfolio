@@ -50,7 +50,7 @@ const TransactionModal = (props) => {
       },
       date: {
         value: "",
-        isValid: true,
+        isValid: false,
       },
       fee: {
         value: "",
@@ -81,7 +81,8 @@ const TransactionModal = (props) => {
           value: value.toString(),
           isValid: true
         }
-      }
+      },
+      false
     )
   }
   
@@ -185,8 +186,8 @@ const TransactionModal = (props) => {
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <Input
                 labelInput="Fee"
+                validators={[validator.VALIDATOR_OPTIONAL]}
                 id="fee"
-                validators={[validator.VALIDATOR_REQUIRE]}
                 element="input"
                 onInput={inputHandler}
                 id="fee"
@@ -199,7 +200,7 @@ const TransactionModal = (props) => {
             <div className="w-full px-3 mb-6 md:mb-0">
               <Input
                 labelInput="Notes"
-                validators={[validator.VALIDATOR_REQUIRE]}
+                validators={[validator.VALIDATOR_OPTIONAL]}
                 id="notes"
                 onInput={inputHandler}
                 element="textarea"
