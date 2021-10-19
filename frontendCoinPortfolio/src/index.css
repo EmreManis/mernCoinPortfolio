@@ -6,7 +6,7 @@
 body {
   margin: 0;
   font-family: Verdana, serif;
-  color: rgb(75, 85, 99);   /*text-gray-600 */
+  color: rgb(75, 85, 99); /*text-gray-600 */
 }
 
 .fadeIn {
@@ -16,12 +16,20 @@ body {
   animation-duration: 1s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
   }
-  @-webkit-keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
+  100% {
+    opacity: 1;
   }
-  @keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
-  } 
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
