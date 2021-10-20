@@ -1,4 +1,5 @@
 const express = require("express");
+const HttpError = require("../models/http-error");
 
 const router = express.Router();
 
@@ -38,9 +39,9 @@ const DummyPortfolio = [
         volume: "$50.473",
         mktCap: "$395.476.421",
         lastWeek: "graph",
-      },
-    ],
-  },
+      }
+    ]
+  }
 ];
 
 router.get("/", (req, res, next) => {
@@ -54,6 +55,10 @@ router.get("/portfolio/:uid", (req, res, next) => {
   const portf = DummyPortfolio.find(p => {
       return p.id === userId;
   });
+
+  if(!portf) {
+    throw new HttpError('Couldnt find a portfolio for the provided id', 404)
+  }
   res.json({portf});
 });
 
