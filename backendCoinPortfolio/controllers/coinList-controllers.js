@@ -37,9 +37,9 @@ const DummyCoinList = [
   ];
 
   const getTableBuilder = (req, res, next) => {
-    if(DummyPortfolio) {
+    try {
       res.json(DummyCoinList);
-    } else {
+    } catch {
       throw new HttpError("Can not get the coin list !");
     }
   };
