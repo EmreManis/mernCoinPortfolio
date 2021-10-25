@@ -1,12 +1,14 @@
 const express = require('express');
 
+const coinListRoutes = require('./routes/coinList-routes');
 const transactionRoutes = require('./routes/transactions-routes');
 
 const app = express();
 
 app.use(express.json());
 
-app.use('/home',transactionRoutes);
+app.use('/home',transactionRoutes, coinListRoutes);
+
 
 app.use((error, req, res, next) =>{
     if(res.headerSent) {

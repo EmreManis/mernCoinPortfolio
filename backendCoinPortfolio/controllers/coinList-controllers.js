@@ -1,4 +1,6 @@
-const DummyPortfolio = [
+const HttpError = require("../models/http-error");
+
+const DummyCoinList = [
         {
           rank: "1",
           name: "Bitcoin",
@@ -35,8 +37,11 @@ const DummyPortfolio = [
   ];
 
   const getTableBuilder = (req, res, next) => {
-    console.log("Get request in tablebuilder");
-    res.json({ message: "It works" });
+    if(DummyPortfolio) {
+      res.json(DummyCoinList);
+    } else {
+      throw new HttpError("Can not get the coin list !");
+    }
   };
 
   exports.getTableBuilder = getTableBuilder;
