@@ -11,6 +11,8 @@ import DatePicker from "react-date-picker";
 
 import "./DatePicker.css";
 
+ /* DatePicker will be move to Input component  some visual ımprovement will be done  */
+
 const TransactionModal = (props) => {
   const [selectedOption, setSelectedOption] = useState({
     value: "etherium"
@@ -71,7 +73,7 @@ const TransactionModal = (props) => {
       value: event.target.value,
     });    
   };
-
+ 
   const dateHandler = (val) => {
     onChange(val);
     setFormData(
