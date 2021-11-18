@@ -10,7 +10,7 @@ let DummyPortfolio = [
         quantity: "1",
         date: "11/11/21",
         fee: "",
-        notes: ""
+        notes: "",
       },
       {
         name: "Etherium",
@@ -18,7 +18,7 @@ let DummyPortfolio = [
         quantity: "3",
         date: "11/11/21",
         fee: "4",
-        notes: ""
+        notes: "",
       },
       {
         name: "Cona",
@@ -26,7 +26,7 @@ let DummyPortfolio = [
         quantity: "4",
         date: "11/11/21",
         fee: "",
-        notes: "Some note added"
+        notes: "Some note added",
       },
     ],
   },
@@ -45,7 +45,7 @@ const getPortfolioById = (req, res, next) => {
   res.json({ portf });
 };
 
-const createPortfolio = (req, res ,next) => {
+const createPortfolio = (req, res, next) => {
   const { name, price, quantity, date, fee, notes } = req.body;
 
   const addedCoin = {
@@ -54,15 +54,15 @@ const createPortfolio = (req, res ,next) => {
     quantity,
     date,
     fee,
-    notes
-  }
+    notes,
+  };
 
-const portf = DummyPortfolio.find((p) => {
-  //logic will be change after db
-  if(p.id === "user1") {
-    return p.portfolio.push(addedCoin);
-  }
-});
+  const portf = DummyPortfolio.find((p) => {
+    //logic will be change after db
+    if (p.id === "user1") {
+      return p.portfolio.push(addedCoin);
+    }
+  });
   res.status(201).json({ portf });
 };
 
