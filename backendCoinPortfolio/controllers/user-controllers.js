@@ -6,8 +6,8 @@ const DummyUsers = [
   {
     id: "u1",
     email: "test@test.com",
-    password: "test",
-  },
+    password: "test"
+  }
 ];
 
 const userSignUp = (req, res, next) => {
@@ -16,7 +16,7 @@ const userSignUp = (req, res, next) => {
   const createdUser = {
     id: uuid(),
     email,
-    password,
+    password
   };
 
   DummyUsers.push(createdUser);
