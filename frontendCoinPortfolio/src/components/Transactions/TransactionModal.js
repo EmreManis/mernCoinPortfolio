@@ -77,6 +77,12 @@ const TransactionModal = (props) => {
         type: "number",
         placeholder: "0.00",
         min: "0",
+        initialValue: null,
+        valid: null,
+        element: null,
+        cssClass: null,
+        rows: null,
+        cols: null,
       },
     },
     {
@@ -88,9 +94,16 @@ const TransactionModal = (props) => {
         validators: "[validator.VALIDATOR_REQUIRE]",
         onInput: "inputHandler",
         id: "pricePerCoin",
+        errorMessage: null,
         type: "number",
+        placeholder: null,
+        min: null,
         initialValue: "formState.inputs.pricePerCoin.value",
         valid: true,
+        element: null,
+        cssClass: null,
+        rows: null,
+        cols: null,
       },
       div2: {
         secondDivCss: "w-full md:w-1/2 px-3 mb-6 md:mb-0",
@@ -98,9 +111,17 @@ const TransactionModal = (props) => {
         element: "input",
         validators: "[validator.VALIDATOR_OPTIONAL]",
         onInput: "inputHandler",
+        errorMessage: null,
         id: "fee",
         type: "number",
+        placeholder: null,
         min: "0",
+        initialValue: null,
+        valid: null,
+        element: null,
+        cssClass: null,
+        rows: null,
+        cols: null,
       },
     },
     {
@@ -108,17 +129,33 @@ const TransactionModal = (props) => {
       div1: {
         secondDivCss: "w-full md:w-1/2 px-3 mb-6 md:mb-0",
         labelInput: "Notes",
-        validators: "[validator.VALIDATOR_OPTIONAL]",
-        id: "notes",
+        validators: "[validator.VALIDATOR_OPTIONAL]",    
         onInput: "inputHandler",
+        errorMessage: null,
+        id: "notes",
+        type: null,
+        placeholder: "Add Note",
+        min: null,
+        initialValue: null,
+        valid: null,
         element: "textarea",
         cssClass: "resize-none pr-8",
         rows: "4",
         cols: "42",
-        placeholder: "Add Note",
+ 
       },
     },
   ];
+
+  const formCreator = formData.forEach(() => {
+      <div className={formData.firstDivCss}>
+        <div className={formData.secondDivCss}>
+          <Input 
+          
+          />
+        </div>
+      </div>
+  })
 
   const changedHandler = (event) => {
     setSelectedOption({
