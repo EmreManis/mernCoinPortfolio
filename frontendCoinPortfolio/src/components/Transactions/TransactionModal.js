@@ -11,8 +11,6 @@ import DatePicker from "react-date-picker";
 
 import "./DatePicker.css";
 
- /* DatePicker will be move to Input component  some visual ımprovement will be done  */
-
 const TransactionModal = (props) => {
   const [selectedOption, setSelectedOption] = useState({
     value: "etherium"
@@ -125,7 +123,7 @@ const TransactionModal = (props) => {
                     changedHandler(event);
                   }}
                   // onInput={inputHandler}
-                  className="block bg-gray-200 border border-gray-200 focus:bg-white focus:border-gray-500 shadow appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="block bg-white border focus:border-gray-500 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="coin-name"
                 >
                   <option value="etherium">Etherium</option>
@@ -214,7 +212,7 @@ const TransactionModal = (props) => {
             </div>
           </div>
           <div className="flex -mx-px mb-6">
-            <div className="w-full block bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight">
+            <div className="w-full block bg-blue-50 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight">
               <span className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Total Spent: 5$
               </span>
