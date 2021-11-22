@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom"; 
+import { useHistory, useParams } from "react-router-dom";
 
 import Input from "../../shared/Input";
 import { useForm } from "../../shared/hooks/form-hook";
 import * as validator from "../../shared/Validator";
 import Backdrop from "../../shared/Backdrop";
-import Button from "../../shared/Button"
+import Button from "../../shared/Button";
 
 import DatePicker from "react-date-picker";
 
@@ -13,8 +13,10 @@ import "./DatePicker.css";
 
 const TransactionModal = (props) => {
   const [selectedOption, setSelectedOption] = useState({
-    value: "etherium"
+    value: "etherium",
   });
+
+  const [dateValue] = useState(new Date());
 
   let history = useHistory();
 
@@ -33,7 +35,6 @@ const TransactionModal = (props) => {
     },
   };
 
-
   const [formState, inputHandler, setFormData] = useForm(
     {
       coin: {
@@ -49,8 +50,8 @@ const TransactionModal = (props) => {
         isValid: false,
       },
       date: {
-        value: "",
-        isValid: false,
+        value: dateValue,
+        isValid: true,
       },
       fee: {
         value: "",
@@ -63,48 +64,32 @@ const TransactionModal = (props) => {
     },
     false
   );
-   
-  const [value, onChange] = useState(new Date());
 
   const changedHandler = (event) => {
     setSelectedOption({
       value: event.target.value,
-    });    
+    });
   };
- 
-  const dateHandler = (val) => {
-    onChange(val);
+
+  console.log(formState);
+
+  useEffect(() => {
+    history.push(`/transaction/${selectedOption.value}`);
     setFormData(
       {
         ...formState.inputs,
-        date: {
-          value: value.toString(),
-          isValid: true
-        }
+        coin: {
+          value: selectedOption.value,
+          isValid: true,
+        },
+        pricePerCoin: {
+          value: dummyData[selectedOption.value].pricePerCoin,
+          isValid: true,
+        },
       },
       false
-    )
-  }
-  
-  console.log(formState);
-  
-  useEffect(() =>{
-    history.push(`/transaction/${selectedOption.value}`);  
-    setFormData(
-      {   
-            ...formState.inputs,
-            coin:{
-              value:selectedOption.value,
-              isValid: true
-            },
-            pricePerCoin:{
-              value: dummyData[selectedOption.value].pricePerCoin,
-              isValid: true
-            }         
-      },
-      false
-    )
-  },[selectedOption]);
+    );
+  }, [selectedOption]);
 
   return (
     <React.Fragment>
@@ -142,21 +127,20 @@ const TransactionModal = (props) => {
               </div>
             </div>
           </div>
+          <div className="w-fullmb-6 md:mb-0">
+            <Input
+              labelInput="Quantity"
+              element="input"
+              validators={[validator.VALIDATOR_REQUIRE]}
+              onInput={inputHandler}
+              errorMessage="Enter a valid Quantity"
+              id="quantity"
+              type="number"
+              placeholder="0.00"
+              min="0"
+            />
+          </div>
           <div className="flex flex-wrap justify-between -mx-3 mb-2">
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <Input
-                labelInput="Quantity"
-                element="input"
-                validators={[validator.VALIDATOR_REQUIRE]}
-                onInput={inputHandler}
-                errorMessage="Enter a valid Quantity"
-                id="quantity"
-                type="number"
-                placeholder="0.00"
-                min="0"
-              />
-            </div>
-
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <Input
                 labelInput="Price Per Coin"
@@ -169,20 +153,6 @@ const TransactionModal = (props) => {
                 valid={true}
               />
             </div>
-          </div>
-          <div className="flex -mx-3 mb-2">
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Date
-              </label>
-              <DatePicker
-                className="wrapper"
-                onChange={dateHandler}
-                value={value}
-                required
-              />
-            </div>
-
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <Input
                 labelInput="Fee"
@@ -221,14 +191,16 @@ const TransactionModal = (props) => {
           <div className="flex justify-around">
             <Button
               cssClass=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              disabled={!formState.isValid} 
+              disabled={!formState.isValid}
             >
               Add Transaction
             </Button>
-            <Button cssClass="bg-red-500 hover:bg-red-600 py-2 px-4 text-white font-bold rounded focus:outline-none focus:shadow-outline"
-                      buttonType="cancel">
-                Cancel
-              </Button>
+            <Button
+              cssClass="bg-red-500 hover:bg-red-600 py-2 px-4 text-white font-bold rounded focus:outline-none focus:shadow-outline"
+              buttonType="cancel"
+            >
+              Cancel
+            </Button>
           </div>
         </form>
       </div>
