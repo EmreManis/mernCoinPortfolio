@@ -7,8 +7,6 @@ import * as validator from "../../shared/Validator";
 import Backdrop from "../../shared/Backdrop";
 import Button from "../../shared/Button";
 
-import DatePicker from "react-date-picker";
-
 import "./DatePicker.css";
 
 const TransactionModal = (props) => {
@@ -65,13 +63,68 @@ const TransactionModal = (props) => {
     false
   );
 
+  const formData = [
+    {
+      firstDivCss: null,
+      div1: {
+        secondDivCss: "w-fullmb-6 md:mb-0",
+        labelInput: "Quantity",
+        element: "input",
+        validators: "[validator.VALIDATOR_REQUIRE]",
+        onInput: "inputHandler",
+        errorMessage: "Enter a valid Quantity",
+        id: "quantity",
+        type: "number",
+        placeholder: "0.00",
+        min: "0",
+      },
+    },
+    {
+      firstDivCss: "flex flex-wrap justify-between -mx-3 mb-2",
+      div1: {
+        secondDivCss: "w-full md:w-1/2 px-3 mb-6 md:mb-0",
+        labelInput: "Price Per Coin",
+        element: "input",
+        validators: "[validator.VALIDATOR_REQUIRE]",
+        onInput: "inputHandler",
+        id: "pricePerCoin",
+        type: "number",
+        initialValue: "formState.inputs.pricePerCoin.value",
+        valid: true,
+      },
+      div2: {
+        secondDivCss: "w-full md:w-1/2 px-3 mb-6 md:mb-0",
+        labelInput: "Fee",
+        element: "input",
+        validators: "[validator.VALIDATOR_OPTIONAL]",
+        onInput: "inputHandler",
+        id: "fee",
+        type: "number",
+        min: "0",
+      },
+    },
+    {
+      firstDivCss: "flex flex-wrap -mx-3 mb-6",
+      div1: {
+        secondDivCss: "w-full md:w-1/2 px-3 mb-6 md:mb-0",
+        labelInput: "Notes",
+        validators: "[validator.VALIDATOR_OPTIONAL]",
+        id: "notes",
+        onInput: "inputHandler",
+        element: "textarea",
+        cssClass: "resize-none pr-8",
+        rows: "4",
+        cols: "42",
+        placeholder: "Add Note",
+      },
+    },
+  ];
+
   const changedHandler = (event) => {
     setSelectedOption({
       value: event.target.value,
     });
   };
-
-  console.log(formState);
 
   useEffect(() => {
     history.push(`/transaction/${selectedOption.value}`);
@@ -127,60 +180,7 @@ const TransactionModal = (props) => {
               </div>
             </div>
           </div>
-          <div className="w-fullmb-6 md:mb-0">
-            <Input
-              labelInput="Quantity"
-              element="input"
-              validators={[validator.VALIDATOR_REQUIRE]}
-              onInput={inputHandler}
-              errorMessage="Enter a valid Quantity"
-              id="quantity"
-              type="number"
-              placeholder="0.00"
-              min="0"
-            />
-          </div>
-          <div className="flex flex-wrap justify-between -mx-3 mb-2">
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <Input
-                labelInput="Price Per Coin"
-                validators={[validator.VALIDATOR_REQUIRE]}
-                element="input"
-                onInput={inputHandler}
-                type="number"
-                id="pricePerCoin"
-                initialValue={formState.inputs.pricePerCoin.value}
-                valid={true}
-              />
-            </div>
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <Input
-                labelInput="Fee"
-                validators={[validator.VALIDATOR_OPTIONAL]}
-                id="fee"
-                element="input"
-                onInput={inputHandler}
-                id="fee"
-                type="number"
-                min="0"
-              />
-            </div>
-          </div>
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full px-3 mb-6 md:mb-0">
-              <Input
-                labelInput="Notes"
-                validators={[validator.VALIDATOR_OPTIONAL]}
-                id="notes"
-                onInput={inputHandler}
-                element="textarea"
-                cssClass="resize-none pr-8"
-                rows="4"
-                cols="42"
-                placeholder="Add Note"
-              />
-            </div>
-          </div>
+
           <div className="flex -mx-px mb-6">
             <div className="w-full block bg-blue-50 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight">
               <span className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
