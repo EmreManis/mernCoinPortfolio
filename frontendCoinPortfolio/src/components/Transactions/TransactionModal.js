@@ -84,6 +84,7 @@ const TransactionModal = (props) => {
         rows: null,
         cols: null,
       },
+      div2: {},
     },
     {
       firstDivCss: "flex flex-wrap justify-between -mx-3 mb-2",
@@ -129,7 +130,7 @@ const TransactionModal = (props) => {
       div1: {
         secondDivCss: "w-full md:w-1/2 px-3 mb-6 md:mb-0",
         labelInput: "Notes",
-        validators: "[validator.VALIDATOR_OPTIONAL]",    
+        validators: "[validator.VALIDATOR_OPTIONAL]",
         onInput: "inputHandler",
         errorMessage: null,
         id: "notes",
@@ -142,20 +143,37 @@ const TransactionModal = (props) => {
         cssClass: "resize-none pr-8",
         rows: "4",
         cols: "42",
- 
       },
+      div2: null,
     },
   ];
 
-  const formCreator = formData.forEach(() => {
-      <div className={formData.firstDivCss}>
-        <div className={formData.secondDivCss}>
-          <Input 
-          
-          />
-        </div>
+  const insideLoop = () => {
+   formData.map(obj => {
+     for(const key in obj) {
+      // console.log(key);
+       return (
+        <React.Fragment>
+          <div>
+            <input style={{ border: "1px solid red" }} />
+          </div>
+          <div>
+            <input />
+          </div>
+         </React.Fragment>
+         )
+     }
+   });
+  }
+  console.log(insideLoop());
+  const formCreator = formData.map((objVal) => {
+    console.log(objVal);
+    return (
+      <div className={objVal.firstDivCss}>
+        {insideLoop}
       </div>
-  })
+    );
+  });
 
   const changedHandler = (event) => {
     setSelectedOption({
@@ -217,7 +235,7 @@ const TransactionModal = (props) => {
               </div>
             </div>
           </div>
-
+          {formCreator}
           <div className="flex -mx-px mb-6">
             <div className="w-full block bg-blue-50 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight">
               <span className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
