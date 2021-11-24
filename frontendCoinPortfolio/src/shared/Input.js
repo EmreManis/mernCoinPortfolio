@@ -52,7 +52,7 @@ const Input = props => {
   const element =
     props.element === "input" ? (     
         <input
-          className={`${cssStyle}` + " " + props.cssClass}
+          className={`${cssStyle} + " " + ${props.cssClass}`}
           id={props.id}
           type={props.type}
           placeholder={props.placeholder}
@@ -62,7 +62,7 @@ const Input = props => {
         />
     ) : ( 
         <textarea
-          className={`${cssStyle}` + " " + props.cssClass}
+          className={`${cssStyle} + " " +  ${props.cssClass}`}
           id={props.id}
           placeholder={props.placeholder}
           value={inputState.value}

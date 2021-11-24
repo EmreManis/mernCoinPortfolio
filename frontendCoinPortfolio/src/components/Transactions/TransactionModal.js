@@ -66,111 +66,98 @@ const TransactionModal = (props) => {
   const formData = [
     {
       firstDivCss: null,
-      div1: {
-        secondDivCss: "w-fullmb-6 md:mb-0",
-        labelInput: "Quantity",
-        element: "input",
-        validators: "[validator.VALIDATOR_REQUIRE]",
-        onInput: "inputHandler",
-        errorMessage: "Enter a valid Quantity",
-        id: "quantity",
-        type: "number",
-        placeholder: "0.00",
-        min: "0",
-        initialValue: null,
-        valid: null,
-        element: null,
-        cssClass: null,
-        rows: null,
-        cols: null,
-      },
-      div2: {},
+      secondDivCss: "w-fullmb-6 md:mb-0",
+      labelInput: "Quantity**",
+      element: "input",
+      validators: "[validator.VALIDATOR_REQUIRE]",
+      onInput: inputHandler,
+      errorMessage: "Enter a valid Quantity",
+      id: "quantity",
+      type: "number",
+      placeholder: "0.00",
+      min: "0",
+      initialValue: null,
+      valid: null,
+      element: null,
+      cssClass: null,
+      rows: null,
     },
     {
       firstDivCss: "flex flex-wrap justify-between -mx-3 mb-2",
-      div1: {
-        secondDivCss: "w-full md:w-1/2 px-3 mb-6 md:mb-0",
-        labelInput: "Price Per Coin",
-        element: "input",
-        validators: "[validator.VALIDATOR_REQUIRE]",
-        onInput: "inputHandler",
-        id: "pricePerCoin",
-        errorMessage: null,
-        type: "number",
-        placeholder: null,
-        min: null,
-        initialValue: "formState.inputs.pricePerCoin.value",
-        valid: true,
-        element: null,
-        cssClass: null,
-        rows: null,
-        cols: null,
-      },
-      div2: {
-        secondDivCss: "w-full md:w-1/2 px-3 mb-6 md:mb-0",
-        labelInput: "Fee",
-        element: "input",
-        validators: "[validator.VALIDATOR_OPTIONAL]",
-        onInput: "inputHandler",
-        errorMessage: null,
-        id: "fee",
-        type: "number",
-        placeholder: null,
-        min: "0",
-        initialValue: null,
-        valid: null,
-        element: null,
-        cssClass: null,
-        rows: null,
-        cols: null,
-      },
+      secondDivCss: "w-full px-3 mb-6 md:mb-0",
+      labelInput: "Price Per Coin",
+      element: "input",
+      validators: "[validator.VALIDATOR_REQUIRE]",
+      onInput: inputHandler,
+      id: "pricePerCoin",
+      errorMessage: null,
+      type: "number",
+      placeholder: null,
+      min: null,
+      initialValue: formState.inputs.pricePerCoin.value,
+      valid: true,
+      element: null,
+      cssClass: null,
+      rows: null,
+    },
+    {
+      firstDivCss: "flex flex-wrap justify-between -mx-3 mb-2",
+      secondDivCss: "w-full px-3 mb-6 md:mb-0",
+      labelInput: "Fee",
+      element: "input",
+      validators: "[validator.VALIDATOR_OPTIONAL]",
+      onInput: inputHandler,
+      errorMessage: null,
+      id: "fee",
+      type: "number",
+      placeholder: null,
+      min: "0",
+      initialValue: null,
+      valid: null,
+      element: null,
+      cssClass: null,
+      rows: null,
     },
     {
       firstDivCss: "flex flex-wrap -mx-3 mb-6",
-      div1: {
-        secondDivCss: "w-full md:w-1/2 px-3 mb-6 md:mb-0",
-        labelInput: "Notes",
-        validators: "[validator.VALIDATOR_OPTIONAL]",
-        onInput: "inputHandler",
-        errorMessage: null,
-        id: "notes",
-        type: null,
-        placeholder: "Add Note",
-        min: null,
-        initialValue: null,
-        valid: null,
-        element: "textarea",
-        cssClass: "resize-none pr-8",
-        rows: "4",
-        cols: "42",
-      },
-      div2: null,
+      secondDivCss: "w-full px-3 mb-6 md:mb-0",
+      labelInput: "Notes",
+      validators: "[validator.VALIDATOR_OPTIONAL]",
+      onInput: inputHandler,
+      errorMessage: null,
+      id: "notes",
+      type: null,
+      placeholder: "Add Note",
+      min: null,
+      initialValue: null,
+      valid: null,
+      element: "textarea",
+      cssClass: "resize-none pr-8",
+      rows: "3",  
     },
   ];
 
-  const insideLoop = () => {
-   formData.map(obj => {
-     for(const key in obj) {
-      // console.log(key);
-       return (
-        <React.Fragment>
-          <div>
-            <input style={{ border: "1px solid red" }} />
-          </div>
-          <div>
-            <input />
-          </div>
-         </React.Fragment>
-         )
-     }
-   });
-  }
-  console.log(insideLoop());
   const formCreator = formData.map((objVal) => {
-    console.log(objVal);
     return (
-      <div className={objVal.firstDivCss}>
-        {insideLoop}
+      <div className={objVal.firstDivCss} key={objVal.id}>
+        <div className={objVal.secondDivCss}>
+          <Input 
+            labelInput={objVal.labelInput}
+            validators={objVal.validators}
+            onInput={objVal.onInput}
+            errorMessage={objVal.errorMessage}
+            id={objVal.id}
+            type={objVal.type}
+            placeholder={objVal.placeholder}
+            min={objVal.min}
+            initialValue={objVal.initialValue}
+            valid={objVal.valid}
+            element={objVal.element}
+            cssClass={objVal.cssClass}
+            rows={objVal.rows}
+            cols={objVal.cols}
+          />
+        </div>
       </div>
     );
   });
