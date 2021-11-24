@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom"; 
+import { useHistory, useParams } from "react-router-dom";
 
 import Input from "../../shared/Input";
 import { useForm } from "../../shared/hooks/form-hook";
 import * as validator from "../../shared/Validator";
 import Backdrop from "../../shared/Backdrop";
-import Button from "../../shared/Button"
-
-import DatePicker from "react-date-picker";
+import Button from "../../shared/Button";
 
 import "./DatePicker.css";
 
 const TransactionModal = (props) => {
   const [selectedOption, setSelectedOption] = useState({
-    value: "etherium"
+    value: "etherium",
   });
+
+  const [dateValue] = useState(new Date());
 
   let history = useHistory();
 
@@ -33,7 +33,6 @@ const TransactionModal = (props) => {
     },
   };
 
-
   const [formState, inputHandler, setFormData] = useForm(
     {
       coin: {
@@ -49,8 +48,8 @@ const TransactionModal = (props) => {
         isValid: false,
       },
       date: {
-        value: "",
-        isValid: false,
+        value: dateValue,
+        isValid: true,
       },
       fee: {
         value: "",
@@ -63,48 +62,122 @@ const TransactionModal = (props) => {
     },
     false
   );
-   
-  const [value, onChange] = useState(new Date());
+
+  const formData = [
+    {
+      firstDivCss: null,
+      secondDivCss: "w-fullmb-6 md:mb-0",
+      labelInput: "Quantity**",
+      element: "input",
+      validators: [validator.VALIDATOR_REQUIRE],
+      onInput: inputHandler,
+      errorMessage: "Enter a valid Quantity",
+      id: "quantity",
+      type: "number",
+      placeholder: "0.00",
+      min: "0",
+      valid: null,
+      cssClass: null,
+      rows: null,
+    },
+    {
+      firstDivCss: "flex flex-wrap justify-between -mx-3 mb-2",
+      secondDivCss: "w-full px-3 mb-6 md:mb-0",
+      labelInput: "Price Per Coin",
+      element: "input",
+      validators: [validator.VALIDATOR_REQUIRE],
+      onInput: inputHandler,
+      id: "pricePerCoin",
+      errorMessage: null,
+      type: "number",
+      placeholder: null,
+      min: null,
+      initialValue: formState.inputs.pricePerCoin.value,
+      valid: true,
+      cssClass: null,
+      rows: null,
+    },
+    {
+      firstDivCss: "flex flex-wrap justify-between -mx-3 mb-2",
+      secondDivCss: "w-full px-3 mb-6 md:mb-0",
+      labelInput: "Fee",
+      element: "input",
+      validators: [validator.VALIDATOR_OPTIONAL],
+      onInput: inputHandler,
+      errorMessage: null,
+      id: "fee",
+      type: "number",
+      placeholder: null,
+      min: "0",
+      valid: null,
+      cssClass: null,
+      rows: null,
+    },
+    {
+      firstDivCss: "flex flex-wrap -mx-3 mb-6",
+      secondDivCss: "w-full px-3 mb-6 md:mb-0",
+      labelInput: "Notes",
+      element: "textarea",
+      validators: [validator.VALIDATOR_OPTIONAL],
+      onInput: inputHandler,
+      errorMessage: null,
+      id: "notes",
+      type: null,
+      placeholder: "Add Note",
+      min: null,
+      valid: null,
+      cssClass: "resize-none pr-8",
+      rows: "3",  
+    },
+  ];
+
+  const formCreator = formData.map((objVal) => {
+    return (
+      <div className={objVal.firstDivCss} key={objVal.id}>
+        <div className={objVal.secondDivCss}>
+          <Input 
+            labelInput={objVal.labelInput}
+            validators={objVal.validators}
+            element={objVal.element}
+            onInput={objVal.onInput}
+            errorMessage={objVal.errorMessage}
+            id={objVal.id}
+            type={objVal.type}
+            placeholder={objVal.placeholder}
+            min={objVal.min}
+            initialValue={objVal.initialValue}
+            valid={objVal.valid}
+            cssClass={objVal.cssClass}
+            rows={objVal.rows}
+          />
+        </div>
+      </div>
+    );
+  });
 
   const changedHandler = (event) => {
     setSelectedOption({
       value: event.target.value,
-    });    
+    });
   };
 
-  const dateHandler = (val) => {
-    onChange(val);
+  useEffect(() => {
+    history.push(`/transaction/${selectedOption.value}`);
     setFormData(
       {
         ...formState.inputs,
-        date: {
-          value: value.toString(),
-          isValid: true
-        }
+        coin: {
+          value: selectedOption.value,
+          isValid: true,
+        },
+        pricePerCoin: {
+          value: dummyData[selectedOption.value].pricePerCoin,
+          isValid: true,
+        },
       },
       false
-    )
-  }
-  
-  console.log(formState);
-  
-  useEffect(() =>{
-    history.push(`/transaction/${selectedOption.value}`);  
-    setFormData(
-      {   
-            ...formState.inputs,
-            coin:{
-              value:selectedOption.value,
-              isValid: true
-            },
-            pricePerCoin:{
-              value: dummyData[selectedOption.value].pricePerCoin,
-              isValid: true
-            }         
-      },
-      false
-    )
-  },[selectedOption]);
+    );
+  }, [selectedOption]);
 
   return (
     <React.Fragment>
@@ -123,7 +196,7 @@ const TransactionModal = (props) => {
                     changedHandler(event);
                   }}
                   // onInput={inputHandler}
-                  className="block bg-gray-200 border border-gray-200 focus:bg-white focus:border-gray-500 shadow appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="block bg-white border focus:border-gray-500 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="coin-name"
                 >
                   <option value="etherium">Etherium</option>
@@ -142,77 +215,9 @@ const TransactionModal = (props) => {
               </div>
             </div>
           </div>
-          <div className="flex flex-wrap justify-between -mx-3 mb-2">
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <Input
-                labelInput="Quantity"
-                element="input"
-                validators={[validator.VALIDATOR_REQUIRE]}
-                onInput={inputHandler}
-                errorMessage="Enter a valid Quantity"
-                id="quantity"
-                type="number"
-                placeholder="0.00"
-                min="0"
-              />
-            </div>
-
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <Input
-                labelInput="Price Per Coin"
-                validators={[validator.VALIDATOR_REQUIRE]}
-                element="input"
-                onInput={inputHandler}
-                type="number"
-                id="pricePerCoin"
-                initialValue={formState.inputs.pricePerCoin.value}
-                valid={true}
-              />
-            </div>
-          </div>
-          <div className="flex -mx-3 mb-2">
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Date
-              </label>
-              <DatePicker
-                className="wrapper"
-                onChange={dateHandler}
-                value={value}
-                required
-              />
-            </div>
-
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <Input
-                labelInput="Fee"
-                validators={[validator.VALIDATOR_OPTIONAL]}
-                id="fee"
-                element="input"
-                onInput={inputHandler}
-                id="fee"
-                type="number"
-                min="0"
-              />
-            </div>
-          </div>
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full px-3 mb-6 md:mb-0">
-              <Input
-                labelInput="Notes"
-                validators={[validator.VALIDATOR_OPTIONAL]}
-                id="notes"
-                onInput={inputHandler}
-                element="textarea"
-                cssClass="resize-none pr-8"
-                rows="4"
-                cols="42"
-                placeholder="Add Note"
-              />
-            </div>
-          </div>
+          {formCreator}
           <div className="flex -mx-px mb-6">
-            <div className="w-full block bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight">
+            <div className="w-full block bg-blue-50 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight">
               <span className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Total Spent: 5$
               </span>
@@ -221,14 +226,16 @@ const TransactionModal = (props) => {
           <div className="flex justify-around">
             <Button
               cssClass=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              disabled={!formState.isValid} 
+              disabled={!formState.isValid}
             >
               Add Transaction
             </Button>
-            <Button cssClass="bg-red-500 hover:bg-red-600 py-2 px-4 text-white font-bold rounded focus:outline-none focus:shadow-outline"
-                      buttonType="cancel">
-                Cancel
-              </Button>
+            <Button
+              cssClass="bg-red-500 hover:bg-red-600 py-2 px-4 text-white font-bold rounded focus:outline-none focus:shadow-outline"
+              buttonType="cancel"
+            >
+              Cancel
+            </Button>
           </div>
         </form>
       </div>

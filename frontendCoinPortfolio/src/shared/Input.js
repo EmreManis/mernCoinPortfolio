@@ -22,7 +22,7 @@ const inputReducer = (state, action) => {
 
 const Input = props => {
   const cssStyle =
-    "block bg-gray-200 border focus:bg-white focus:border-gray-500 shadow appearance-none rounded w-full py-3 px-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
+    "block border appearance-none rounded w-full py-3 px-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
 
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.initialValue || '',
@@ -52,7 +52,7 @@ const Input = props => {
   const element =
     props.element === "input" ? (     
         <input
-          className={`${cssStyle}` + " " + props.cssClass}
+          className={`${cssStyle} + " " + ${props.cssClass}`}
           id={props.id}
           type={props.type}
           placeholder={props.placeholder}
@@ -62,7 +62,7 @@ const Input = props => {
         />
     ) : ( 
         <textarea
-          className={`${cssStyle}` + " " + props.cssClass}
+          className={`${cssStyle} + " " +  ${props.cssClass}`}
           id={props.id}
           placeholder={props.placeholder}
           value={inputState.value}

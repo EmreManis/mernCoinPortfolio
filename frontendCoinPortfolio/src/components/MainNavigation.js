@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const MainNavigation  = (props) =>{
 
-    const [balance, setBalance] = useState(999);
-    const [profitLoss, setprofitLoss] = useState(132);
+    const [balance] = useState(999);
+    const [profitLoss] = useState(132);
 
     return (
         <nav className="flex h-40 px-1">

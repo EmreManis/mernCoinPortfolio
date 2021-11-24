@@ -23,7 +23,6 @@ const Login = (props) => {
     false
   );
 
-  console.log(formState);
   return (
     <React.Fragment>
       <Backdrop />
