@@ -1,5 +1,7 @@
 const HttpError = require("../models/http-error");
 
+const { validationResult } = require("express-validator");
+
 let DummyPortfolio = [
   {
     id: "user1",
@@ -46,6 +48,12 @@ const getPortfolioById = (req, res, next) => {
 };
 
 const createPortfolio = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors);
+    throw new HttpError("Invalid inputs passed, please check your data", 422);
+  }
+
   const { name, price, quantity, date, fee, notes } = req.body;
 
   const addedCoin = {
