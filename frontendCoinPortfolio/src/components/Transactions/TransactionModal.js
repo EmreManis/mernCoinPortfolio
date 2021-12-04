@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Input from "../../shared/Input";
 import { useForm } from "../../shared/hooks/form-hook";
@@ -7,7 +7,6 @@ import * as validator from "../../shared/Validator";
 import Backdrop from "../../shared/Backdrop";
 import Button from "../../shared/Button";
 
-import "./DatePicker.css";
 
 const TransactionModal = (props) => {
   const [selectedOption, setSelectedOption] = useState({
