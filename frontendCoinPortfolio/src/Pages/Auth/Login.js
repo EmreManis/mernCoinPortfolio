@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 
+import { AuthContext  } from "../../shared/context/auth-context";
 import Button from "../../shared/Button";
 import Input from "../../shared/Input";
 import Backdrop from "../../shared/Backdrop";
@@ -9,6 +10,7 @@ import { useForm } from "../../shared/hooks/form-hook";
 import "../../index.css";
 
 const Login = (props) => {
+  const auth = useContext(AuthContext);
   const [formState, inputHandler] = useForm(
     {
       email: {
@@ -22,12 +24,17 @@ const Login = (props) => {
     },
     false
   );
+    console.log(formState);
+  const submitHandler = event => {
+    event.preventDefault();
+    auth.login();
+  }
 
   return (
     <React.Fragment>
       <Backdrop />
       <div className="w-full my-16 flex justify-center z-50 absolute top-0 fadeIn">
-        <form className="bg-white shadow-md rounded px-12 pt-6 pb-8 mb-4">
+        <form className="bg-white shadow-md rounded px-12 pt-6 pb-8 mb-4" onSubmit={submitHandler}>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"

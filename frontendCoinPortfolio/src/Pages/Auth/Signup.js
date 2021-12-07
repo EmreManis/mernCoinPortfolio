@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
+import { AuthContext } from "../../shared/context/auth-context";
 import Button from "../../shared/Button";
 import Input from "../../shared/Input";
 import Backdrop from "../../shared/Backdrop";
@@ -9,6 +10,8 @@ import { useForm } from "../../shared/hooks/form-hook";
 import "../../index.css";
 
 const Signup = (props) => {
+  const auth = useContext(AuthContext);
+
   const [formState, inputHandler] = useForm(
     {
       email: {
@@ -33,6 +36,7 @@ const Signup = (props) => {
     event.preventDefault();
     const pass = formState.initialInputs.password.value;
     const conf = formState.initialInputs.confirmation.value;
+    auth.login();
     return setError(pass !== conf);
   };
 

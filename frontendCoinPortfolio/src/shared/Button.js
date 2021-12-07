@@ -25,6 +25,7 @@ const Button = (props) => {
   } else {
     return (
       <button
+        type="submit"
         className={`${cssStyle}` + " " + props.cssClass}
         onClick={props.onClick}
         disabled={props.disabled}
