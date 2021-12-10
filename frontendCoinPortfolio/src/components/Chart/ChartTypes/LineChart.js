@@ -10,7 +10,7 @@ import {
 
 const LineType = (props) => {
     return (
-        <LineChart width={400} height={250} data={props.data}
+        <LineChart width={props.width} height={250} data={props.data}
                    margin={{ top: 10, right: 30, left: 0, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />

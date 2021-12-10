@@ -11,8 +11,8 @@ const homePage = () => {
             <div className="contain relative">
                 <Navbar />
                 <div className="flex mt-5">
-                   <Chart />
-                   <TableBuilder />
+                   <Chart  width={400}/>
+                   <TableBuilder align="self-start"/>
                 </div>
             </div>
 

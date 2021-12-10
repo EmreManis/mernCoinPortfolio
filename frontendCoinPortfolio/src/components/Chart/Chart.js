@@ -89,15 +89,15 @@ const Chart = (props) => {
     const chartHandler = (line, pie) => {
 
             if( line ) {
-                return  <LineType data={DummyData}/>
+                return  <LineType data={DummyData} width={props.width}/>
             } else if ( pie ) {
-                return <PieType data01 = {data01} data02={data02}/>
+                return <PieType data01 = {data01} data02={data02} width={props.width}/>
             }
 
     }
 
     return(
-                <div className="w-1/3">
+                <div >
                     <div className="w-1/2">
                         <ul className="list-none flex space-x-2 pl-20">
                             <li><button className={ lineChart ? "border-b-2 border-green-600 toLeft" : null } onClick={switchToLineHandler}>LineChart</button></li>

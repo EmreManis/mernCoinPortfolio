@@ -11,6 +11,7 @@ import Homepage from "./Pages/Homepage";
 import Login from "./Pages/Auth/Login";
 import Signup from "./Pages/Auth/Signup";
 import TransactionModal from "./components/Transactions/TransactionModal";
+import Portfolio from "./Pages/Portfolio";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,7 +22,7 @@ function App() {
 
   const logout = useCallback(() => {
     setIsLoggedIn(false);
-  });
+  },[]);
 
   console.log(isLoggedIn);
   let routes;
@@ -33,6 +34,9 @@ function App() {
         </Route>
         <Route path="/home">
           <Homepage />
+        </Route>
+        <Route path="/portfolio">
+          <Portfolio />
         </Route>
         <Route path="/transaction/:coinName">
           <Homepage />

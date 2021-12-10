@@ -47,10 +47,25 @@ const MainNavigation = (props) => {
             Sign Up
           </Link>
         </ul>
-      ): (
-          <div className="flex justify-center items-center w-1/5 space-x-2">
-              <Link className={"text-gray-100 py-1 px-3 rounded-lg bg-blue-500 hover:bg-blue-600"} to="/transaction/etherium">Add Coin</Link>
-          </div>
+      ) : (
+        <div className="flex justify-end items-center w-1/5 space-x-2">
+            <Link
+              className={
+                "text-gray-100 py-2 px-4 rounded-lg bg-blue-500 hover:bg-blue-600"
+              }
+              to="/transaction/etherium"
+            >
+              Add Coin
+            </Link>
+            <Link
+              className={
+                "text-gray-100 py-2 px-4 rounded-lg bg-green-500 hover:bg-green-600"
+              }
+              to="/portfolio"
+            >
+              Profile
+            </Link>
+        </div>
       )}
     </nav>
   );
