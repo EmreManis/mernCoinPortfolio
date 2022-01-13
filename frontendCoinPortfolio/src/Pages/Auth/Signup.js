@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import axios from "axios";
 
 import { AuthContext } from "../../shared/context/auth-context";
 import Button from "../../shared/Button";
@@ -19,7 +20,7 @@ const Signup = (props) => {
         isValid: false,
       },
       password: {
-        value: " ",
+        value: "asd ",
         isValid: false,
       },
       confirmation: {
@@ -34,12 +35,23 @@ const Signup = (props) => {
 
   const passwordHandler = (event) => {
     event.preventDefault();
-    const pass = formState.initialInputs.password.value;
-    const conf = formState.initialInputs.confirmation.value;
-    auth.login();
-    return setError(pass !== conf);
+    const email = formState.inputs.email.value;
+    const pass = formState.inputs.password.value;
+    const conf = formState.inputs.confirmation.value;
+    if(pass !== conf) {
+      return setError(pass !== conf);
+    }
+    axios.post("http://localhost:5000/api/signup",{
+      email: email,
+      password: pass
+    }) 
+    .then(resp => {
+      console.log(resp.data)
+    })
+    .catch(err => {
+      console.log(err.response.data)
+    });
   };
-
  
 
   return (

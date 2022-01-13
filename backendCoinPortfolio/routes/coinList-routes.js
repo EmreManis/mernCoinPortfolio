@@ -4,6 +4,6 @@ const coinListControllers = require("../controllers/coinList-controllers");
 
 const router = express.Router();
 
-router.get("/", coinListControllers.getTableBuilder);
+router.get("/coinList", coinListControllers.getTableBuilder);
 
 module.exports = router;

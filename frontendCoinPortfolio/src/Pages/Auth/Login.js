@@ -24,7 +24,6 @@ const Login = (props) => {
     },
     false
   );
-    console.log(formState);
   const submitHandler = event => {
     event.preventDefault();
     auth.login();

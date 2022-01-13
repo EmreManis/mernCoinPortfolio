@@ -12,7 +12,17 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/home", transactionRoutes, coinListRoutes, userRoutes);
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-Width, Content-Type, Accept, Authorization"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE")
+  next();
+});
+
+app.use("/api", transactionRoutes, coinListRoutes, userRoutes);
 
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route", 404);
@@ -29,7 +39,7 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    "mongodb+srv://testUser:12345@cluster0.61uwf.mongodb.net/auth?retryWrites=true&w=majority"
+    "mongodb+srv://testUser:12345@cluster0.61uwf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
   )
   .then(() => {
     app.listen(5000);

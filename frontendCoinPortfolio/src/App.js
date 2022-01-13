@@ -24,7 +24,6 @@ function App() {
     setIsLoggedIn(false);
   },[]);
 
-  console.log(isLoggedIn);
   let routes;
   if (isLoggedIn) {
     routes = (

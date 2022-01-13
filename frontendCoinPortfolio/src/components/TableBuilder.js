@@ -1,6 +1,23 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+
+import axios from "axios";
 
 const TableBuilder = (props) => {
+  const [dummyData, setDummyData] = useState([])
+
+  useEffect(() => {
+      axios.get("http://localhost:5000/api/coinList")
+          .then((resp) => {
+              setDummyData(resp.data);
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+  }
+  )
+
+
+
   const tableHeader = (tableType) => {
     let headerNames;
     tableType === "profile"
@@ -51,7 +68,7 @@ const TableBuilder = (props) => {
               );
             });
               case 'global' : 
-              return data.map((el) => {
+              return dummyData.map((el) => {
                 return (
                   <tr key={el.name}>
                     <td className={el.cssNames}>{el.rank}</td>
