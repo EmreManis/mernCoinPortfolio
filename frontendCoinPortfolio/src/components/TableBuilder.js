@@ -13,7 +13,7 @@ const TableBuilder = (props) => {
           .catch((err) => {
               console.log(err)
           })
-  }
+  }, []
   )
 
 

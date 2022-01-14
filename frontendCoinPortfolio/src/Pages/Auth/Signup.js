@@ -32,6 +32,7 @@ const Signup = (props) => {
   );
 
   const [error, setError] = useState(false);
+  const [backError, setBackError] = useState("");
 
   const passwordHandler = (event) => {
     event.preventDefault();
@@ -45,11 +46,11 @@ const Signup = (props) => {
       email: email,
       password: pass
     }) 
-    .then(resp => {
-      console.log(resp.data)
+    .then(() => {
+      auth.login();
     })
     .catch(err => {
-      console.log(err.response.data)
+      setBackError(err.response.data.message);
     });
   };
  
@@ -64,9 +65,10 @@ const Signup = (props) => {
         >
           {error && (
             <p className="text-red-600 font-bold text-center text-lg">
-              Password doesnt match
+              Password doesn't match
             </p>
           )}
+          {<p className="text-red-600 font-bold text-center text-lg">{backError}</p>}
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"

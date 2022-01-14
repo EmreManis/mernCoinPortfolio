@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, lazy, Suspense } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -8,10 +8,11 @@ import {
 
 import { AuthContext } from "./shared/context/auth-context";
 import Homepage from "./Pages/Homepage";
-import Login from "./Pages/Auth/Login";
-import Signup from "./Pages/Auth/Signup";
-import TransactionModal from "./components/Transactions/TransactionModal";
-import Portfolio from "./Pages/Portfolio";
+
+const TransactionModal = lazy(() => import('./components/Transactions/TransactionModal'));
+const Login = lazy(() => import('./Pages/Auth/Login'));
+const Signup = lazy(() => import('./Pages/Auth/Signup'));
+const Portfolio = lazy(() => import('./Pages/Portfolio'));
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,50 +23,54 @@ function App() {
 
   const logout = useCallback(() => {
     setIsLoggedIn(false);
-  },[]);
+  }, []);
 
   let routes;
   if (isLoggedIn) {
     routes = (
       <Switch>
-        <Route path="/" exact>
-          <Homepage />
-        </Route>
-        <Route path="/home">
-          <Homepage />
-        </Route>
-        <Route path="/portfolio">
-          <Portfolio />
-        </Route>
-        <Route path="/transaction/:coinName">
-          <Homepage />
-          <TransactionModal />
-        </Route>
-        <Redirect to="/" />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Route path="/" exact>
+            <Homepage />
+          </Route>
+          <Route path="/home">
+            <Homepage />
+          </Route>
+          <Route path="/portfolio">
+            <Portfolio />
+          </Route>
+          <Route path="/transaction/:coinName">
+            <Homepage />
+            <TransactionModal />
+          </Route>
+          <Redirect to="/" />
+        </Suspense>
       </Switch>
     );
   } else {
     routes = (
       <Switch>
-        <Route path="/" exact>
-          <Homepage />
-        </Route>
-        <Route path="/home">
-          <Homepage />
-        </Route>
-        <Route path="/login">
-          <Homepage />
-          <Login />
-        </Route>
-        <Route path="/signup">
-          <Homepage />
-          <Signup />
-        </Route>
-        <Route path="/transaction/:coinName">
-          <Homepage />
-          <TransactionModal />
-        </Route>
-        <Redirect to="/" />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Route path="/" exact>
+            <Homepage />
+          </Route>
+          <Route path="/home">
+            <Homepage />
+          </Route>
+          <Route path="/login">
+            <Homepage />
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <Homepage />
+            <Signup />
+          </Route>
+          <Route path="/transaction/:coinName">
+            <Homepage />
+            <TransactionModal />
+          </Route>
+          <Redirect to="/" />
+        </Suspense>
       </Switch>
     );
   }

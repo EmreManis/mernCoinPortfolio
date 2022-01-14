@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import axios from "axios";
 
-import { AuthContext  } from "../../shared/context/auth-context";
+import { AuthContext } from "../../shared/context/auth-context";
 import Button from "../../shared/Button";
 import Input from "../../shared/Input";
 import Backdrop from "../../shared/Backdrop";
@@ -24,16 +25,40 @@ const Login = (props) => {
     },
     false
   );
-  const submitHandler = event => {
+
+  const [backError, setBackError] = useState("");
+
+  const submitHandler = (event) => {
     event.preventDefault();
-    auth.login();
-  }
+    const email = formState.inputs.email.value;
+    const pass = formState.inputs.password.value;
+
+    axios
+      .post("http://localhost:5000/api/login", {
+        email: email,
+        password: pass,
+      })
+      .then(() => {
+        auth.login();
+      })
+      .catch((err) => {
+        setBackError(err.response.data.message);
+      });
+  };
 
   return (
     <React.Fragment>
       <Backdrop />
       <div className="w-full my-16 flex justify-center z-50 absolute top-0 fadeIn">
-        <form className="bg-white shadow-md rounded px-12 pt-6 pb-8 mb-4" onSubmit={submitHandler}>
+        <form
+          className="bg-white shadow-md rounded px-12 pt-6 pb-8 mb-4"
+          onSubmit={submitHandler}
+        >
+          {
+            <p className="text-red-600 font-bold text-center text-lg">
+              {backError}
+            </p>
+          }
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"

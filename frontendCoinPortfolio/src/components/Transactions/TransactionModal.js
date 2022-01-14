@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 import Input from "../../shared/Input";
 import { useForm } from "../../shared/hooks/form-hook";
 import * as validator from "../../shared/Validator";
 import Backdrop from "../../shared/Backdrop";
 import Button from "../../shared/Button";
-
 
 const TransactionModal = (props) => {
   const [selectedOption, setSelectedOption] = useState({
@@ -126,7 +126,7 @@ const TransactionModal = (props) => {
       min: null,
       valid: null,
       cssClass: "resize-none pr-8",
-      rows: "3",  
+      rows: "3",
     },
   ];
 
@@ -134,7 +134,7 @@ const TransactionModal = (props) => {
     return (
       <div className={objVal.firstDivCss} key={objVal.id}>
         <div className={objVal.secondDivCss}>
-          <Input 
+          <Input
             labelInput={objVal.labelInput}
             validators={objVal.validators}
             element={objVal.element}
@@ -178,11 +178,43 @@ const TransactionModal = (props) => {
     );
   }, [selectedOption]);
 
+  const submitHandler = event => {
+    event.preventDefault();
+    
+    let coin = formState.inputs.coin.value;
+    let quantity = formState.inputs.quantity.value;
+    let price = formState.inputs.pricePerCoin.value;
+    let date = formState.inputs.date.value;
+    let fee = formState.inputs.fee.value;
+    let notes = formState.inputs.notes.value;
+
+    let form = {
+      coin,
+      quantity,
+      price,
+      date,
+      fee,
+      notes,
+    };
+
+    axios.post("http://localhost:5000/api/transaction", form)
+      .then(resp => {
+        console.log(resp);
+        history.push("/profile");
+      })
+      .catch(err => {
+        console.log(err.response.data)
+      });
+  };
+
   return (
     <React.Fragment>
       <Backdrop />
       <div className="w-full my-16 flex justify-center z-50 absolute top-0 fadeIn">
-        <form className="bg-white w-full max-w-lg shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form
+          className="bg-white w-full max-w-lg shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          onSubmit={(event) => submitHandler(event)}
+        >
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full px-3">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -226,6 +258,7 @@ const TransactionModal = (props) => {
             <Button
               cssClass=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               disabled={!formState.isValid}
+              onClick={submitHandler}
             >
               Add Transaction
             </Button>

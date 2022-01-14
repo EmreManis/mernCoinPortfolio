@@ -9,9 +9,9 @@ const router = express.Router();
 router.get("/portfolio/:uid", transactionsControllers.getPortfolioById);
 
 router.post(
-  "/transaction/:coinName",
+  "/transaction",
   [
-    check("name").not().isEmpty(),
+    check("coin").not().isEmpty(),
     check("price").isNumeric(),
     check("quantity").isNumeric(),
   ],
