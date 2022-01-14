@@ -4,17 +4,23 @@ const { validationResult } = require("express-validator");
 
 const Transaction = require("../models/transaction");
 
-const getPortfolioById = (req, res, next) => {
-  const userId = req.params.uid;
+const getPortfolioById = async (req, res, next) => {
+  const userId = "u2";
+  let portf;
+  try {
+    portf = await Transaction.find({userId: userId});
+  } catch(err) {
+    const error = new HttpError("Something went wrong, could not get the transaction");
+    return next(error)
+  } 
+  
 
-  const portf = DummyPortfolio.find((p) => {
-    return p.id === userId;
-  });
-
-  if (!portf) {
-    throw new HttpError("Couldnt find a portfolio for the provided id", 404);
+  if (!portf || portf.length == 0) {
+    const error = new HttpError("Couldnt find a portfolio for the provided id", 404);
+    return next(error)
   }
-  res.json({ portf });
+  console.log(portf);
+  res.json({ portf: portf.map(portf => portf.toObject({ getters:true})) });
 };
 
 const createPortfolio = async (req, res, next) => {
@@ -23,9 +29,10 @@ const createPortfolio = async (req, res, next) => {
     throw new HttpError("Invalid inputs passed, please check your data", 422);
   }
 
-  const { coin, price, quantity, date, fee, notes } = req.body;
+  const { userId ,coin, price, quantity, date, fee, notes } = req.body;
 
   const createdCoin = new Transaction({
+    userId,
     coin,
     price,
     quantity,

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useHistory } from "react-router";
 import axios from "axios";
 
 import { AuthContext } from "../../shared/context/auth-context";
@@ -11,7 +12,9 @@ import { useForm } from "../../shared/hooks/form-hook";
 import "../../index.css";
 
 const Login = (props) => {
+  let history = useHistory();
   const auth = useContext(AuthContext);
+
   const [formState, inputHandler] = useForm(
     {
       email: {
@@ -40,6 +43,7 @@ const Login = (props) => {
       })
       .then(() => {
         auth.login();
+        history.push("/portfolio");
       })
       .catch((err) => {
         setBackError(err.response.data.message);

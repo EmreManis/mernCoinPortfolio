@@ -6,11 +6,12 @@ const transactionsControllers = require("../controllers/transactions-controllers
 
 const router = express.Router();
 
-router.get("/portfolio/:uid", transactionsControllers.getPortfolioById);
+router.get("/transaction",  check("userId").not().isEmpty(), transactionsControllers.getPortfolioById);
 
 router.post(
   "/transaction",
-  [
+  [ 
+    check("userId").not().isEmpty(),
     check("coin").not().isEmpty(),
     check("price").isNumeric(),
     check("quantity").isNumeric(),

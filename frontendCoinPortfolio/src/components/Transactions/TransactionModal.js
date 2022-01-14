@@ -180,7 +180,7 @@ const TransactionModal = (props) => {
 
   const submitHandler = event => {
     event.preventDefault();
-    
+    let userId ="u2"
     let coin = formState.inputs.coin.value;
     let quantity = formState.inputs.quantity.value;
     let price = formState.inputs.pricePerCoin.value;
@@ -189,6 +189,7 @@ const TransactionModal = (props) => {
     let notes = formState.inputs.notes.value;
 
     let form = {
+      userId,
       coin,
       quantity,
       price,
@@ -200,7 +201,7 @@ const TransactionModal = (props) => {
     axios.post("http://localhost:5000/api/transaction", form)
       .then(resp => {
         console.log(resp);
-        history.push("/profile");
+        history.push("/portfolio");
       })
       .catch(err => {
         console.log(err.response.data)

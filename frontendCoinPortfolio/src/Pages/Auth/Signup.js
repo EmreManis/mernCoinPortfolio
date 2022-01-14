@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useHistory } from "react-router";
 import axios from "axios";
 
 import { AuthContext } from "../../shared/context/auth-context";
@@ -11,6 +12,7 @@ import { useForm } from "../../shared/hooks/form-hook";
 import "../../index.css";
 
 const Signup = (props) => {
+  let history = useHistory();
   const auth = useContext(AuthContext);
 
   const [formState, inputHandler] = useForm(
@@ -39,21 +41,23 @@ const Signup = (props) => {
     const email = formState.inputs.email.value;
     const pass = formState.inputs.password.value;
     const conf = formState.inputs.confirmation.value;
-    if(pass !== conf) {
+    if (pass !== conf) {
       return setError(pass !== conf);
     }
-    axios.post("http://localhost:5000/api/signup",{
-      email: email,
-      password: pass
-    }) 
-    .then(() => {
-      auth.login();
-    })
-    .catch(err => {
-      setBackError(err.response.data.message);
-    });
+    axios
+      .post("http://localhost:5000/api/signup", {
+        email: email,
+        password: pass,
+      })
+      .then(() => {
+        auth.login();
+        history.push("/portfolio");
+      })
+      .catch((err) => {
+        setBackError(err.response.data.message);
+      });
+   
   };
- 
 
   return (
     <React.Fragment>
@@ -68,7 +72,11 @@ const Signup = (props) => {
               Password doesn't match
             </p>
           )}
-          {<p className="text-red-600 font-bold text-center text-lg">{backError}</p>}
+          {
+            <p className="text-red-600 font-bold text-center text-lg">
+              {backError}
+            </p>
+          }
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -127,8 +135,10 @@ const Signup = (props) => {
             >
               Sign Up
             </Button>
-            <Button cssClass="bg-red-500 hover:bg-red-600 py-2 px-4 text-white font-bold rounded focus:outline-none focus:shadow-outline"
-                    buttonType="cancel">
+            <Button
+              cssClass="bg-red-500 hover:bg-red-600 py-2 px-4 text-white font-bold rounded focus:outline-none focus:shadow-outline"
+              buttonType="cancel"
+            >
               Cancel
             </Button>
           </div>
