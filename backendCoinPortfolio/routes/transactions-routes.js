@@ -6,7 +6,9 @@ const transactionsControllers = require("../controllers/transactions-controllers
 
 const router = express.Router();
 
-router.get("/transaction",  check("userId").not().isEmpty(), transactionsControllers.getPortfolioById);
+router.get("/transaction",  check("userId").not().isEmpty(), transactionsControllers.getPortfolioByUserId);
+
+router.delete("/transaction",check("id").not().isEmpty(), transactionsControllers.deleteCoinById)
 
 router.post(
   "/transaction",

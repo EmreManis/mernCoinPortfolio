@@ -16,7 +16,7 @@ const Button = (props) => {
   if (props.buttonType === "cancel") {
     return (
       <button
-        className={`${cssStyle}` + " " + props.cssClass}
+        className={`${cssStyle} ${props.cssClass}`}
         onClick={closeHandler}
       >
         {props.children}
@@ -26,7 +26,7 @@ const Button = (props) => {
     return (
       <button
         type="submit"
-        className={`${cssStyle}` + " " + props.cssClass}
+        className={`${cssStyle} ${props.cssClass}`}
         onClick={props.onClick}
         disabled={props.disabled}
       >

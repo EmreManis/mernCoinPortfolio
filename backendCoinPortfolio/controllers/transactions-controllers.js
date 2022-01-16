@@ -4,24 +4,44 @@ const { validationResult } = require("express-validator");
 
 const Transaction = require("../models/transaction");
 
-const getPortfolioById = async (req, res, next) => {
+const getPortfolioByUserId = async (req, res, next) => {
   const userId = "u2";
   let portf;
   try {
     portf = await Transaction.find({userId: userId});
   } catch(err) {
-    const error = new HttpError("Something went wrong, could not get the transaction");
+    const error = new HttpError("Something went wrong, could not get the transaction", 500);
     return next(error)
   } 
-  
 
   if (!portf || portf.length == 0) {
     const error = new HttpError("Couldnt find a portfolio for the provided id", 404);
     return next(error)
   }
-  console.log(portf);
   res.json({ portf: portf.map(portf => portf.toObject({ getters:true})) });
 };
+
+const deleteCoinById = async (req, res, next) => {
+  const { id } = req.body;
+  console.log(req.body)
+  let coin ;
+
+  try {
+    coin = await Transaction.findById(id);
+  } catch(err) {
+    const error = new HttpError("Something went wrong here, please try again later", 500);
+    next(error);
+  }
+console.log(coin)
+  try {
+    await coin.remove();
+  } catch (err) {
+    const error = new HttpError("Something went wrong, please try again later", 500);
+    next(error);
+  }
+
+  res.status(200).json({ message: "Coin deleted"});
+}
 
 const createPortfolio = async (req, res, next) => {
   const errors = validationResult(req);
@@ -54,5 +74,6 @@ const createPortfolio = async (req, res, next) => {
   res.status(201).json({ createdCoin });
 };
 
-exports.getPortfolioById = getPortfolioById;
+exports.getPortfolioByUserId = getPortfolioByUserId;
 exports.createPortfolio = createPortfolio;
+exports.deleteCoinById = deleteCoinById;

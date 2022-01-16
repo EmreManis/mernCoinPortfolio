@@ -1,5 +1,7 @@
 import React from "react";
 
+import Button from "../shared/Button";
+
 
 const TableBuilder = (props) => {
 
@@ -11,9 +13,9 @@ const TableBuilder = (props) => {
       ? (headerNames = [
           "Coin",
           "Price",
-          "24h",
-          "Holdings",
-          "Avg. Buy Price",
+          "Quantity",
+          "Fee",
+          "Notes",
           "Profit/ Loss",
           "Action",
         ])
@@ -38,22 +40,23 @@ const TableBuilder = (props) => {
     });
   };
 
+
   const tableElements = (tableType) => {
       switch(tableType){
-          // case 'profile' :
-          //   return props.data.map((el) => {
-          //   return (
-          //       <tr key={el.name}>
-          //         <td className={el.cssNames}>{el.name}</td>
-          //         <td className={el.cssNames}>{el.price}</td>
-          //         <td className={el.cssNames}>{el.daily}</td>
-          //         <td className={el.cssNames}>{el.holding}</td>
-          //         <td className={el.cssNames}>{el.profitLoss}</td>
-          //         <td className={el.cssNames}>{el.avgBuyPrice}</td>
-          //         <td className={el.cssNames}>{el.action}</td>
-          //       </tr>
-          //     );
-          //   });
+          case 'profile' :
+            return props.profileData.map((el) => {
+            return (
+                <tr key={el.id}>
+                  <td className={el.cssNames}>{el.coin}</td>
+                  <td className={el.cssNames}>{el.price}</td>
+                  <td className={el.cssNames}>{el.quantity}</td>
+                  <td className={el.cssNames}>{el.fee == null ? "No fee" : el.fee}</td>
+                  <td className={el.cssNames}>{el.notes === "" ? "No notes added" : el.notes}</td>
+                  <td className={el.cssNames}>{el.avgBuyPrice}</td>
+                  <td className={el.cssNames}><Button cssClass="text-red-500" onClick={() => props.deleteHandler(el.id)}>Delete</Button></td>
+                </tr>
+              );
+            });
               case 'global' : 
               return props.data.map((el) => {
                 return (

@@ -8,18 +8,34 @@ import MainNavigation from "../components/MainNavigation";
 
 const Portfolio = () => {
   const [dummyPortfolio, setDummyPortfolio] = useState([]);
+  const [backError, setBackError] = useState("");
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/transaction")
       .then((resp) => {
-        setDummyPortfolio(resp.data);
+        setDummyPortfolio(resp.data.portf);
+      })
+      .catch((err) => {
+          setBackError(err.response.data.message); 
+          console.log(backError)
+      });
+  }, []);
+
+  const deleteHandler = (id) => {
+   
+    console.log(id)
+    axios
+      .delete("http://localhost:5000/api/transaction", { data: {
+        id: id }
+      } )
+      .then((resp) => {
+        console.log(resp.data);
       })
       .catch((err) => {
         console.log(err.response.data);
       });
-  }, []);
-
+  };
   return (
     <div className="contain relative">
       <MainNavigation />
@@ -28,8 +44,10 @@ const Portfolio = () => {
         <TableBuilder
           align="self-center"
           tableType="profile"
-          profile={dummyPortfolio}
-        />
+          profileData={dummyPortfolio}
+          deleteHandler={deleteHandler}
+          />
+          {backError}
       </div>
     </div>
   );
