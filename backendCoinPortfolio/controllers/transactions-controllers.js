@@ -14,7 +14,8 @@ const getPortfolioByUserId = async (req, res, next) => {
     return next(error)
   } 
 
-  if (!portf || portf.length == 0) {
+  // Try without !portf
+  if (portf.length == 0) {
     const error = new HttpError("Couldnt find a portfolio for the provided id", 404);
     return next(error)
   }

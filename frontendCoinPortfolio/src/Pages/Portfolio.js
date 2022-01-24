@@ -17,24 +17,27 @@ const Portfolio = () => {
         setDummyPortfolio(resp.data.portf);
       })
       .catch((err) => {
+        if(err === null) {
           setBackError(err.response.data.message); 
           console.log(backError)
+        } else {
+          console.log("You dont have any coin on your portfolio");
+        }
       });
   }, []);
 
   const deleteHandler = (id) => {
-   
-    console.log(id)
     axios
-      .delete("http://localhost:5000/api/transaction", { data: {
-        id: id }
-      } )
-      .then((resp) => {
-        console.log(resp.data);
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
+    .delete("http://localhost:5000/api/transaction", { data: {
+      id: id }
+    } )
+    .then((resp) => {
+      setDummyPortfolio(prevCoins => prevCoins.filter(coin => coin.id !== id))
+      console.log(resp.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
   };
   return (
     <div className="contain relative">
@@ -47,7 +50,7 @@ const Portfolio = () => {
           profileData={dummyPortfolio}
           deleteHandler={deleteHandler}
           />
-          {backError}
+          {dummyPortfolio.length === 0 && "You dont have any coin on your portfolio"}
       </div>
     </div>
   );

@@ -20,6 +20,7 @@ const TransactionModal = (props) => {
   const dummyData = {
     etherium: {
       name: "Etherium",
+      // dummyData already structured perCoin, so we can deduct that in the naming
       pricePerCoin: 11111,
     },
     bitCoin: {
@@ -204,7 +205,11 @@ const TransactionModal = (props) => {
         history.push("/portfolio");
       })
       .catch(err => {
-        console.log(err.response.data)
+        if(err) {
+          console.log(err.response.data)
+        } else {
+          console.log("unhandled database error")
+        }
       });
   };
 

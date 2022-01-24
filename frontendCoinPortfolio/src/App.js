@@ -26,62 +26,62 @@ function App() {
     setIsLoggedIn(false);
   }, []);
 
-  // let routes;
-  // if (isLoggedIn) {
-  //   routes = (
-  //     <Switch>
-  //       <Suspense fallback={<div>Loading...</div>}>
-  //         <Route path="/" exact>
-  //           <Homepage />
-  //         </Route>
-  //         <Route path="/home">
-  //           <Homepage />
-  //         </Route>
-  //         <Route path="/portfolio">
-  //           <Portfolio />
-  //         </Route>
-  //         <Route path="/transaction/:coinName">
-  //           <Homepage />
-  //           <TransactionModal />
-  //         </Route>
-  //         <Redirect to="/" />
-  //       </Suspense>
-  //     </Switch>
-  //   );
-  // } else {
-  //   routes = (
-  //     <Switch>
-  //       <Suspense fallback={<div>Loading...</div>}>
-  //         <Route path="/" exact>
-  //           <Homepage />
-  //         </Route>
-  //         <Route path="/home">
-  //           <Homepage />
-  //         </Route>
-  //         <Route path="/login">
-  //           <Homepage />
-  //           <Login />
-  //         </Route>
-  //         <Route path="/signup">
-  //           <Homepage />
-  //           <Signup />
-  //         </Route>
-  //         <Route path="/transaction/:coinName">
-  //           <Homepage />
-  //           <TransactionModal />
-  //         </Route>
-  //         <Redirect to="/" />
-  //       </Suspense>
-  //     </Switch>
-  //   );
-  // }
+  let routes;
+  if (isLoggedIn) {
+    routes = (
+      <Switch>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Route path="/" exact>
+            <Homepage />
+          </Route>
+          <Route path="/home">
+            <Homepage />
+          </Route>
+          <Route path="/portfolio">
+            <Portfolio />
+          </Route>
+          <Route path="/transaction/:coinName">
+            <Homepage />
+            <TransactionModal />
+          </Route>
+          <Redirect to="/" />
+        </Suspense>
+      </Switch>
+    );
+  } else {
+    routes = (
+      <Switch>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Route path="/" exact>
+            <Homepage />
+          </Route>
+          <Route path="/home">
+            <Homepage />
+          </Route>
+          <Route path="/login">
+            <Homepage />
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <Homepage />
+            <Signup />
+          </Route>
+          <Route path="/transaction/:coinName">
+            <Homepage />
+            <TransactionModal />
+          </Route>
+          <Redirect to="/" />
+        </Suspense>
+      </Switch>
+    );
+  }
 
   return (
     <AuthContext.Provider
       value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
     >
-      {/* <Router>{routes}</Router> */}
-      <Router><Portfolio /></Router>
+      <Router>{routes}</Router>
+      {/* <Router><Portfolio /></Router> */}
     </AuthContext.Provider>
   );
 }

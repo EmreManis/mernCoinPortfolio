@@ -88,11 +88,11 @@ const Chart = (props) => {
 
     const chartHandler = (line, pie) => {
 
-            if( line ) {
-                return  <LineType data={DummyData} width={props.width}/>
-            } else if ( pie ) {
-                return <PieType data01 = {data01} data02={data02} width={props.width}/>
-            }
+        if( line ) {
+            return  <LineType data={DummyData} width={props.width}/>
+        } else if ( pie ) {
+            return <PieType data01 = {data01} data02={data02} width={props.width}/>
+        }
 
     }
 
