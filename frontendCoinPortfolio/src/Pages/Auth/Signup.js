@@ -49,8 +49,8 @@ const Signup = (props) => {
         email: email,
         password: pass,
       })
-      .then(() => {
-        auth.login();
+      .then((res) => {
+        auth.login(res.data.userId, res.data.token);
         history.push("/portfolio");
       })
       .catch((err) => {

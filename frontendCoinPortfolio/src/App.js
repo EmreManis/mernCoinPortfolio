@@ -16,18 +16,21 @@ const Signup = lazy(() => import('./Pages/Auth/Signup'));
 // const Portfolio = lazy(() => import('./Pages/Portfolio'));
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState(false);
+  const [userId, setUserId] = useState(false);
 
-  const login = useCallback(() => {
-    setIsLoggedIn(true);
+  const login = useCallback((uid, token) => {
+    setToken(token);
+    setUserId(uid);
   }, []);
 
-  const logout = useCallback(() => {
-    setIsLoggedIn(false);
+  const logout = useCallback((uid, token) => {
+    setToken(null);
+    setUserId(uid);
   }, []);
 
   let routes;
-  if (isLoggedIn) {
+  if (token) {
     routes = (
       <Switch>
         <Suspense fallback={<div>Loading...</div>}>
@@ -78,7 +81,7 @@ function App() {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+      value={{ isLoggedIn: !!token,token: token,userId: userId, login: login, logout: logout }}
     >
       <Router>{routes}</Router>
       {/* <Router><Portfolio /></Router> */}

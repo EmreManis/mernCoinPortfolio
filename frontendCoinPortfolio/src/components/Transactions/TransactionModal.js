@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
+import { AuthContext } from "../../shared/context/auth-context";
 import Input from "../../shared/Input";
 import { useForm } from "../../shared/hooks/form-hook";
 import * as validator from "../../shared/Validator";
@@ -12,6 +13,8 @@ const TransactionModal = (props) => {
   const [selectedOption, setSelectedOption] = useState({
     value: "etherium",
   });
+
+  const auth = useContext(AuthContext);
 
   const [dateValue] = useState(new Date());
 
@@ -179,9 +182,9 @@ const TransactionModal = (props) => {
     );
   }, [selectedOption]);
 
-  const submitHandler = event => {
+  const submitHandler = (event) => {
     event.preventDefault();
-    let userId ="u2"
+    let userId = auth.userId;
     let coin = formState.inputs.coin.value;
     let quantity = formState.inputs.quantity.value;
     let price = formState.inputs.pricePerCoin.value;
@@ -198,17 +201,21 @@ const TransactionModal = (props) => {
       fee,
       notes,
     };
-
-    axios.post("http://localhost:5000/api/transaction", form)
-      .then(resp => {
+    axios
+      .post("http://localhost:5000/api/transaction", form, {
+        headers: {
+          Authorization: "Bearer " + auth.token,
+        },
+      })
+      .then((resp) => {
         console.log(resp);
         history.push("/portfolio");
       })
-      .catch(err => {
-        if(err) {
-          console.log(err.response.data)
+      .catch((err) => {
+        if (err) {
+          console.log(err.response.data);
         } else {
-          console.log("unhandled database error")
+          console.log("Unhandled database error");
         }
       });
   };
