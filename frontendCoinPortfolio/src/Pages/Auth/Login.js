@@ -43,7 +43,6 @@ const Login = (props) => {
       })
       .then((res) => {
         auth.login(res.data.userId, res.data.token);
-        console.log(res.data.token)
         history.push("/portfolio");
       })
       .catch((err) => {

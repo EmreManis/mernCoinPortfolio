@@ -6,7 +6,6 @@ const transactionRoutes = require("./routes/transactions-routes");
 const userRoutes = require("./routes/users-routes");
 
 const HttpError = require("./models/http-error");
-//test
 
 const app = express();
 
@@ -18,11 +17,11 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-Width, Content-Type, Accept, Authorization"
   );
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE")
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
   next();
 });
 
-app.use("/api", transactionRoutes, coinListRoutes, userRoutes);
+app.use("/api", coinListRoutes, userRoutes, transactionRoutes);
 
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route", 404);

@@ -75,10 +75,9 @@ const userSignUp = async (req, res, next) => {
     );
     next(error);
   }
-
   res
     .status(201)
-    .json({ user: createdUser.id, email: createdUser.email, token: token });
+    .json({ userId: createdUser.id, email: createdUser.email, token: token });
 };
 
 const userLogin = async (req, res, next) => {
@@ -95,7 +94,7 @@ const userLogin = async (req, res, next) => {
   if (!existingUser) {
     const error = new HttpError(
       "Could not find the creadentials. Could not you log in",
-      401
+      403
     );
     return next(error);
   }
@@ -114,7 +113,7 @@ const userLogin = async (req, res, next) => {
   if (!isValidPassword) {
     const error = new HttpError(
       "Could not find the credentials, coult not log you in",
-      401
+      403
     );
     return next(error);
   }
@@ -133,10 +132,9 @@ const userLogin = async (req, res, next) => {
     );
     next(error);
   }
-
   res
     .status(201)
-    .json({ user: existingUser.id, email: existingUser.email, token: token });
+    .json({ userId: existingUser.id, email: existingUser.email, token: token });
 
 };
 

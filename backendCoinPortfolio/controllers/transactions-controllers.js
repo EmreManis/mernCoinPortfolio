@@ -5,7 +5,8 @@ const { validationResult } = require("express-validator");
 const Transaction = require("../models/transaction");
 
 const getPortfolioByUserId = async (req, res, next) => {
-  const userId = "u2";
+
+  let userId = req.query.ID;
   let portf;
   try {
     portf = await Transaction.find({userId: userId});
@@ -14,7 +15,6 @@ const getPortfolioByUserId = async (req, res, next) => {
     return next(error)
   } 
 
-  // Try without !portf
   if (portf.length == 0) {
     const error = new HttpError("Couldnt find a portfolio for the provided id", 404);
     return next(error)
@@ -24,16 +24,19 @@ const getPortfolioByUserId = async (req, res, next) => {
 
 const deleteCoinById = async (req, res, next) => {
   const { id } = req.body;
-  console.log(req.body)
   let coin ;
-
   try {
     coin = await Transaction.findById(id);
   } catch(err) {
     const error = new HttpError("Something went wrong here, please try again later", 500);
     next(error);
   }
-console.log(coin)
+
+  if(coin.userId !== req.userData.userId) {
+    const error = new HttpError("You are not allowed to do this action", 401);
+    return next(error);
+  }
+  
   try {
     await coin.remove();
   } catch (err) {

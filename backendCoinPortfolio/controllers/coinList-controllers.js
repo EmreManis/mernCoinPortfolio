@@ -1,7 +1,6 @@
 const HttpError = require("../models/http-error");
 
-// Variable should start with lowercased letter
-const DummyCoinList = [
+const dummyCoinList = [
       {
         rank: "1",
         name: "Bitcoin",
@@ -39,7 +38,7 @@ const DummyCoinList = [
 
 const getTableBuilder = (req, res, next) => {
   try {
-    res.json(DummyCoinList);
+    res.json(dummyCoinList);
   } catch {
     throw new HttpError("Can not get the coin list !");
   }
