@@ -36,12 +36,47 @@ const dummyCoinList = [
       }
 ];
 
+const WebSocketClient = require('websocket').client;
+
 const getTableBuilder = (req, res, next) => {
   try {
     res.json(dummyCoinList);
   } catch {
     throw new HttpError("Can not get the coin list !");
   }
+
+const interval = "1m";
+const symbol = "btcusd";
+const socket = `wss://stream.binance.com:9443/ws/${symbol}t@kline_${interval}`;
+
+
+var client = new WebSocketClient();
+
+client.on('connectFailed', function(error) {
+    console.log('Connect Error: ' + error.toString());
+});
+
+client.on('connect', function(connection) {
+    console.log('WebSocket Client Connected');
+    connection.on('error', function(error) {
+        console.log("Connection Error: " + error.toString());
+    });
+    connection.on('close', function() {
+        console.log('echo-protocol Connection Closed');
+    });
+    connection.on('message', function(message) {
+            console.log(message);
+            // logic will be implemented here
+    });
+    
+});
+
+client.connect(socket, ()=>{
+    console.log("connected")
+});
 };
 
 exports.getTableBuilder = getTableBuilder;
+
+
+
