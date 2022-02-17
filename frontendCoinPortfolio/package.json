@@ -13,7 +13,8 @@
     "react-router-dom": "^5.2.1",
     "react-scripts": "4.0.3",
     "recharts": "^2.1.2",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "websocket": "^1.0.34"
   },
   "scripts": {
     "start": "craco start",

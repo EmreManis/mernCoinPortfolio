@@ -5,12 +5,14 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
+import { w3cwebsocket as W3CWEBSOCKET } from "websocket";
 
 import { AuthContext } from "./shared/context/auth-context";
 import Homepage from "./Pages/Homepage";
-// import Portfolio from "./Pages/Portfolio";
 
 let logoutTimer;
+
+const client = new W3CWEBSOCKET("ws://127.0.0.1:8000")
 
 const TransactionModal = lazy(() =>
   import("./components/Transactions/TransactionModal")
@@ -66,6 +68,12 @@ function App() {
       login(storedData.userId, storedData.token, new Date(storedData.expiration));
     }
   }, [login]);
+
+  useEffect(() => {
+    client.onopen = () => {
+      console.log("websocket client connected");
+    }
+  }, [])
 
   let routes;
   if (token) {
